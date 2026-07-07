@@ -34,9 +34,9 @@ description: "Lista de tarefas para implementação da feature"
 **Teste Independente**: Subir a aplicação sem definir perfil explicitamente deve inicializar como `dev` e se conectar ao banco Docker padrão.
 
 ### Implementação da História de Usuário 1
-- [ ] T004 [P] [US1] Criar arquivo base `application.yml` em `backend/src/main/resources/application.yml`
-- [ ] T005 [P] [US1] Criar propriedades de desenvolvimento em `backend/src/main/resources/application-dev.yml` configurando a conexão do PostgreSQL.
-- [ ] T006 [P] [US1] Criar configuração de ambiente do frontend em `frontend/.env.development` com URLs base para frontend/backend.
+- [x] T004 [P] [US1] Criar arquivo base `application.yml` em `backend/src/main/resources/application.yml`
+- [x] T005 [P] [US1] Criar propriedades de desenvolvimento em `backend/src/main/resources/application-dev.yml` configurando a conexão do PostgreSQL.
+- [x] T006 [P] [US1] Criar configuração de ambiente do frontend em `frontend/.env.development` com URLs base para frontend/backend.
 
 ---
 
@@ -46,7 +46,7 @@ description: "Lista de tarefas para implementação da feature"
 **Teste Independente**: Criar um arquivo `.local` ou `application-dev.local.yml`, alterar a porta e checar que a app subiu na nova porta, sem estar rastreado no git.
 
 ### Implementação da História de Usuário 2
-- [ ] T007 [P] [US2] Atualizar `backend/src/main/resources/application.yml` para incluir `dev.local` em `spring.profiles.include` (Next.js já suporta `.env.local` automaticamente).
+- [x] T007 [P] [US2] Atualizar `backend/src/main/resources/application.yml` para incluir `dev.local` em `spring.profiles.include` (Next.js já suporta `.env.local` automaticamente).
 
 ---
 
@@ -56,9 +56,9 @@ description: "Lista de tarefas para implementação da feature"
 **Teste Independente**: Subir com perfil `prd` falha se variáveis de env essenciais não estiverem injetadas no SO; migrations do Flyway não executam sozinhas em prd.
 
 ### Implementação da História de Usuário 3
-- [ ] T008 [P] [US3] Criar arquivo `backend/src/main/resources/application-hml.yml`
-- [ ] T009 [P] [US3] Criar arquivo `backend/src/main/resources/application-prd.yml` com `spring.flyway.enabled=false` e exigindo vars de ambiente do SO.
-- [ ] T010 [P] [US3] Criar arquivo `frontend/.env.production` como base para sobrescritas na Vercel.
+- [x] T008 [P] [US3] Criar arquivo `backend/src/main/resources/application-hml.yml`
+- [x] T009 [P] [US3] Criar arquivo `backend/src/main/resources/application-prd.yml` com `spring.flyway.enabled=false` e exigindo vars de ambiente do SO.
+- [x] T010 [P] [US3] Criar arquivo `frontend/.env.production` como base para sobrescritas na Vercel.
 
 ---
 
