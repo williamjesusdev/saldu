@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: saldu
+  profiles:
+    # Ativa dev por padrão se nenhum outro perfil for passado
+    active: dev
+    # Permite incluir arquivos application-dev.local.yml se existirem sem falhar
+    include: dev.local
