@@ -19,7 +19,9 @@ jobs:
         cache: maven
     - name: Run Tests
       working-directory: ./backend
-      run: ./mvnw test
+      run: |
+        chmod +x mvnw
+        ./mvnw test
 
   frontend-lint-build:
     runs-on: ubuntu-latest
