@@ -28,8 +28,8 @@
 
 ### Implementation for User Story 1
 
-- [ ] T001 [P] [US1] Create root package.json configuring npm workspaces (apps/api, apps/web, apps/e2e) in `/package.json`
-- [ ] T002 [P] [US1] Create PostgreSQL local infrastructure config in `/infra/docker-compose.yml`
+- [x] T001 [P] [US1] Create root package.json configuring npm workspaces (apps/api, apps/web, apps/e2e) in `/package.json`
+- [x] T002 [P] [US1] Create PostgreSQL local infrastructure config in `/infra/docker-compose.yml`
 
 **Checkpoint**: At this point, User Story 1 should be fully functional and testable independently
 
@@ -45,14 +45,14 @@
 
 > **NOTE: Write these tests FIRST, ensure they FAIL before implementation**
 
-- [ ] T003 [US2] Write base context load test validating Testcontainers integration in `apps/api/src/e2e/java/com/saldu/SalduApplicationTests.java`
+- [x] T003 [US2] Write base context load test validating Testcontainers integration in `apps/api/src/e2e/java/com/saldu/SalduApplicationTests.java`
 
 ### Implementation for User Story 2
 
-- [ ] T004 [US2] Initialize Maven pom.xml with Spring Boot, PostgreSQL, Flyway, and Testcontainers dependencies in `apps/api/pom.xml`
-- [ ] T005 [US2] Create main application class in `apps/api/src/main/java/com/saldu/SalduApplication.java`
-- [ ] T006 [US2] Create application properties for database config in `apps/api/src/main/resources/application.yml`
-- [ ] T007 [US2] Create initial empty Flyway migration in `apps/api/src/main/resources/db/migration/V1__init.sql`
+- [x] T004 [US2] Initialize Maven pom.xml with Spring Boot, PostgreSQL, Flyway, and Testcontainers dependencies in `apps/api/pom.xml`
+- [x] T005 [US2] Create main application class in `apps/api/src/main/java/com/saldu/SalduApplication.java`
+- [x] T006 [US2] Create application properties for database config in `apps/api/src/main/resources/application.yml`
+- [x] T007 [US2] Create initial empty Flyway migration in `apps/api/src/main/resources/db/migration/V1__init.sql`
 
 **Checkpoint**: At this point, User Stories 1 AND 2 should both work independently
 
@@ -66,14 +66,14 @@
 
 ### Tests for User Story 3 ⚠️
 
-- [ ] T008 [US3] Create base dummy test or verify linter rules are strict in `apps/web/.eslintrc.json`
+- [x] T008 [US3] Create base dummy test or verify linter rules are strict in `apps/web/.eslintrc.json`
 
 ### Implementation for User Story 3
 
-- [ ] T009 [US3] Initialize Next.js app package.json and dependencies in `apps/web/package.json`
-- [ ] T010 [US3] Create TypeScript configuration in `apps/web/tsconfig.json`
-- [ ] T011 [US3] Create Next.js configuration in `apps/web/next.config.mjs`
-- [ ] T012 [US3] Create initial App Router layout and page in `apps/web/src/app/layout.tsx` and `apps/web/src/app/page.tsx`
+- [x] T009 [US3] Initialize Next.js app package.json and dependencies in `apps/web/package.json`
+- [x] T010 [US3] Create TypeScript configuration in `apps/web/tsconfig.json`
+- [x] T011 [US3] Create Next.js configuration in `apps/web/next.config.mjs`
+- [x] T012 [US3] Create initial App Router layout and page in `apps/web/src/app/layout.tsx` and `apps/web/src/app/page.tsx`
 
 **Checkpoint**: All user stories up to US3 are now independently functional
 
@@ -87,12 +87,12 @@
 
 ### Tests for User Story 4 ⚠️
 
-- [ ] T013 [US4] Write an empty/dummy validating E2E test in `apps/e2e/tests/example.spec.ts`
+- [x] T013 [US4] Write an empty/dummy validating E2E test in `apps/e2e/tests/example.spec.ts`
 
 ### Implementation for User Story 4
 
-- [ ] T014 [US4] Initialize Playwright project dependencies in `apps/e2e/package.json`
-- [ ] T015 [US4] Configure Playwright settings in `apps/e2e/playwright.config.ts`
+- [x] T014 [US4] Initialize Playwright project dependencies in `apps/e2e/package.json`
+- [x] T015 [US4] Configure Playwright settings in `apps/e2e/playwright.config.ts`
 
 **Checkpoint**: E2E testing framework is ready
 
@@ -106,8 +106,8 @@
 
 ### Implementation for User Story 5
 
-- [ ] T016 [P] [US5] Create Tailwind config with tokens extracted from design.md in `apps/web/tailwind.config.ts`
-- [ ] T017 [US5] Include CSS variables and base styles in `apps/web/src/app/globals.css`
+- [x] T016 [P] [US5] Create Tailwind config with tokens extracted from design.md in `apps/web/tailwind.config.ts`
+- [x] T017 [US5] Include CSS variables and base styles in `apps/web/src/app/globals.css`
 
 ---
 
@@ -115,9 +115,9 @@
 
 **Purpose**: Improvements that affect multiple user stories
 
-- [ ] T018 Configurar scripts unificados no `package.json` da raiz para invocar instalação/build de todos os apps em `/package.json`
-- [ ] T019 Validar as métricas de sucesso (Build < 1min, zero warnings backend, zero erros linter)
-- [ ] T020 Run quickstart.md validation
+- [x] T018 Configurar scripts unificados no `package.json` da raiz para invocar instalação/build de todos os apps em `/package.json`
+- [x] T019 Validar as métricas de sucesso (Build < 1min, zero warnings backend, zero erros linter)
+- [x] T020 Run quickstart.md validation
 
 ---
 

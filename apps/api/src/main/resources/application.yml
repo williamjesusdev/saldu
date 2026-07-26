@@ -1,0 +1,40 @@
+# Server
+server:
+  port: ${SERVER_PORT:8080}
+
+spring:
+  application:
+    name: saldu-backend
+
+  # Profiles
+  profiles:
+    active: ${SPRING_PROFILES_ACTIVE:local}
+
+  # Datasource
+  datasource:
+    url: ${SPRING_DATASOURCE_URL}
+    username: ${SPRING_DATASOURCE_USERNAME}
+    password: ${SPRING_DATASOURCE_PASSWORD}
+    driver-class-name: org.postgresql.Driver
+
+  # JPA
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    open-in-view: false
+    show-sql: false
+
+  # Flyway
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+
+  # Jackson (Spring Boot 4.x / Jackson 3.x: WRITE_DATES_AS_TIMESTAMPS removed — ISO-8601 is default)
+  jackson:
+    default-property-inclusion: non_absent
+
+# Logging
+logging:
+  level:
+    root: INFO
+    com.saldu: INFO
