@@ -14,6 +14,17 @@ You read the state, confirm it with the user, drive the SpecKit phases, and coor
 
 ---
 
+## Documentation Language Standard
+
+You MUST enforce the following bilingual standard across ALL SpecKit design artifacts (`spec.md`, `plan.md`, `research.md`, `data-model.md`, `quickstart.md`, `tasks.md`):
+1. **Structural Headers & Tags**: MUST be in **English** (e.g., `**Decision**:`, `*Expected Outcome*:`, `**Goal**:`, `### Implementation for...`).
+2. **Business Content & Rationales**: Scenarios, domain descriptions, rationales, and entity explanations MUST be in **Portuguese** (e.g., "O usuário pertence a uma Subscription").
+3. **Task Descriptions (`tasks.md`)**: The actual technical action of a task MUST be in **English** (e.g., `- [ ] T001 Create user repository in src/...`).
+
+Whenever you generate or update documents, strictly apply this standard to match the legacy `001-project-foundation` baseline.
+
+---
+
 ## 1. Context & State Initialization
 
 Always start by discovering where we are in the feature lifecycle.
@@ -50,6 +61,7 @@ The SpecKit framework provides several internal and optional flows. You must orc
 
 - Use `.agents/skills/speckit-tasks/SKILL.md` to generate atomic, dependency-ordered tasks in `tasks.md`.
 - **TDD Requirement**: Ensure the tasks dictate that tests are written _before_ the implementation (Red -> Green -> Refactor).
+- **Language Enforcement**: Ensure task actions are generated in English while keeping user story descriptions in Portuguese.
 
 ### Phase 5: Implementation (The Specialists)
 

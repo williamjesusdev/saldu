@@ -22,7 +22,8 @@ description: "Task list template for feature implementation"
 ## Path Conventions
 
 - **Single project**: `src/`, `tests/` at repository root
-- **Web app**: `backend/src/`, `frontend/src/`
+- **Web app**: `api/src/`, `web/src/`
+- **Web app + E2E**: `api/src/`, `web/src/`, `e2e/tests/`
 - **Mobile**: `api/src/`, `ios/src/` or `android/src/`
 - Paths shown below assume single project - adjust based on plan.md structure
 
