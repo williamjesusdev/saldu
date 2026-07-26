@@ -239,7 +239,7 @@ Recomenda-se confirmação final antes de qualquer lançamento público via: reg
 |---|---|---|
 | 1 | Criar `refs/ddd-pragmatico.md` com definição arrojada | ✅ |
 | 2 | Criar `refs/setup-ambiente.md` com setup local | ✅ |
-| 3 | Instalar SpecKit e gerar `.specify/memory/constitution.md` | ⏳ |
+| 3 | Instalar SpecKit e gerar `.specify/memory/constitution.md` | ✅ |
 | 4 | Configurar monorepo (`apps/api` + `apps/web` + `apps/e2e` + `infra`) | ⏳ |
 | 5 | Gerar Design Tokens a partir do `design.md` | ⏳ |
 | 6 | Inicializar api (Spring Boot 4.1.0 + Java 25 + Postgres) | ⏳ |
