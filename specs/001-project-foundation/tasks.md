@@ -28,7 +28,7 @@
 
 ### Implementation for User Story 1
 
-- [x] T001 [P] [US1] Create root package.json configuring npm workspaces (apps/api, apps/web, apps/e2e) in `/package.json`
+- [x] T001 [P] [US1] Create root package.json configuring npm workspaces (apps/api, apps/web, tests/e2e) in `/package.json`
 - [x] T002 [P] [US1] Create PostgreSQL local infrastructure config in `/infra/docker-compose.yml`
 
 **Checkpoint**: At this point, User Story 1 should be fully functional and testable independently
@@ -45,7 +45,7 @@
 
 > **NOTE: Write these tests FIRST, ensure they FAIL before implementation**
 
-- [x] T003 [US2] Write base context load test validating Testcontainers integration in `apps/api/src/e2e/java/com/saldu/SalduApplicationTests.java`
+- [x] T003 [US2] Write base context load test validating Testcontainers integration in `apps/api/src/test/java/com/saldu/SmokeTest.java`
 
 ### Implementation for User Story 2
 
@@ -87,12 +87,12 @@
 
 ### Tests for User Story 4 ⚠️
 
-- [x] T013 [US4] Write an empty/dummy validating E2E test in `apps/e2e/tests/example.spec.ts`
+- [x] T013 [US4] Write an empty/dummy validating E2E test in `tests/e2e/tests/example.spec.ts`
 
 ### Implementation for User Story 4
 
-- [x] T014 [US4] Initialize Playwright project dependencies in `apps/e2e/package.json`
-- [x] T015 [US4] Configure Playwright settings in `apps/e2e/playwright.config.ts`
+- [x] T014 [US4] Initialize Playwright project dependencies in `tests/e2e/package.json`
+- [x] T015 [US4] Configure Playwright settings in `tests/e2e/playwright.config.ts`
 
 **Checkpoint**: E2E testing framework is ready
 

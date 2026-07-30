@@ -14,7 +14,7 @@
 ## Path Conventions
 - **Backend**: `apps/api/src/main/java/...`, `apps/api/src/test/java/...`
 - **Frontend**: `apps/web/src/...`, `apps/web/tests/...`
-- **E2E**: `apps/e2e/tests/...`
+- **E2E**: `tests/e2e/tests/...`
 - **DB Migrations**: `apps/api/src/main/resources/db/migration/...`
 
 ---
@@ -62,7 +62,7 @@
 
 - [ ] T012 [P] [US1] Write integration test (Testcontainers) for register endpoints in apps/api/src/test/java/br/com/saldu/presentation/auth/RegisterIntegrationTest.java
 - [ ] T013 [P] [US1] Write frontend unit tests (Jest) for Registration and Consent forms in apps/web/tests/unit/auth/Register.test.tsx
-- [ ] T014 [P] [US1] Write E2E Playwright test for Registration flow in apps/e2e/tests/auth/register.spec.ts
+- [ ] T014 [P] [US1] Write E2E Playwright test for Registration flow in tests/e2e/tests/auth/register.spec.ts
 
 ### Implementation for User Story 1
 
@@ -85,7 +85,7 @@
 
 - [ ] T021 [P] [US2] Write integration test for Login/Password change/Reset in apps/api/src/test/java/br/com/saldu/presentation/auth/AuthLoginIntegrationTest.java
 - [ ] T022 [P] [US2] Write frontend unit tests (Jest) for Login and Password Reset forms in apps/web/tests/unit/auth/Login.test.tsx
-- [ ] T023 [P] [US2] Write E2E Playwright test for Login and Password Reset flow in apps/e2e/tests/auth/login.spec.ts
+- [ ] T023 [P] [US2] Write E2E Playwright test for Login and Password Reset flow in tests/e2e/tests/auth/login.spec.ts
 
 ### Implementation for User Story 2
 
@@ -109,7 +109,7 @@
 
 - [ ] T031 [P] [US3] Write integration test for Admin endpoints in apps/api/src/test/java/br/com/saldu/presentation/admin/AdminIntegrationTest.java
 - [ ] T032 [P] [US3] Write frontend unit tests (Jest) for Admin Dashboard UI in apps/web/tests/unit/admin/Dashboard.test.tsx
-- [ ] T033 [P] [US3] Write E2E Playwright test for Admin Dashboard in apps/e2e/tests/admin/dashboard.spec.ts
+- [ ] T033 [P] [US3] Write E2E Playwright test for Admin Dashboard in tests/e2e/tests/admin/dashboard.spec.ts
 
 ### Implementation for User Story 3
 

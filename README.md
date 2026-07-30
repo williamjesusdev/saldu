@@ -6,7 +6,7 @@ It guarantees absolute precision in financial calculations and strict tenant dat
 ## Project Structure
 - **apps/api/**: Spring Boot 4.1.0 + Java 25. Enforces Pragmatic DDD and Row-Level Security (RLS).
 - **apps/web/**: Next.js 16 (App Router) + Tailwind CSS 4.
-- **apps/e2e/**: Testes E2E com Playwright.
+- **tests/e2e/**: Testes E2E com Playwright.
 - **infra/**: Docker Compose (PostgreSQL 16) and Flyway scripts.
 - **docs/**: Product Requirements Document (PRD) and architecture designs.
 - **AGENTS.md**: **[CRITICAL]** The living context document for all AI agents. Outlines layer dependencies, bounded contexts, and the dependency decision table.

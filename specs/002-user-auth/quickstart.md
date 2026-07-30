@@ -177,7 +177,7 @@ npm run test
 ### E2E (Playwright)
 
 ```bash
-cd apps/e2e
+cd tests/e2e
 
 # Rodar testes
 npx playwright test

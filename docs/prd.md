@@ -181,8 +181,9 @@ saldu_/
 ├── .specify/        # Configuração harness SpecKit
 ├── apps/
 │   ├── api/         # Spring Boot 4.1.0 + Java 25
-│   ├── e2e/         # Testes E2E com Playwright
 │   └── web/         # Next.js + TypeScript + Tailwind
+├── tests/
+│   └── e2e/         # Testes E2E com Playwright
 ├── docs/            # Documentação do projeto
 ├── infra/           # Docker Compose + configs de infra local
 ├── package.json     # Orquestração do Monorepo via npm scripts (Root)
@@ -240,7 +241,7 @@ Recomenda-se confirmação final antes de qualquer lançamento público via: reg
 | 1 | Criar `refs/ddd-pragmatico.md` com definição arrojada | ✅ |
 | 2 | Criar `refs/setup-ambiente.md` com setup local | ✅ |
 | 3 | Instalar SpecKit e gerar `.specify/memory/constitution.md` | ✅ |
-| 4 | Configurar monorepo (`apps/api` + `apps/web` + `apps/e2e` + `infra`) | ⏳ |
+| 4 | Configurar monorepo (`apps/api` + `apps/web` + `tests/e2e` + `infra`) | ⏳ |
 | 5 | Gerar Design Tokens a partir do `design.md` | ⏳ |
 | 6 | Inicializar api (Spring Boot 4.1.0 + Java 25 + Postgres) | ⏳ |
 | 7 | Inicializar web (Next.js + Tailwind) | ⏳ |

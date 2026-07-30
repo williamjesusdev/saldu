@@ -68,11 +68,12 @@ apps/
 │   └── src/
 │       ├── app/(auth)/
 │       └── components/
+tests/
 └── e2e/                   # E2E Tests (Playwright)
     └── tests/
 ```
 
-**Structure Decision**: Utilização do monorepo definido na Fase 0, separando lógicas em `apps/api` (Backend), `apps/web` (Frontend) e `apps/e2e` (Testes ponta a ponta). O backend utiliza a abordagem de Bounded Context em camadas (Domain, Application, Infrastructure, Presentation).
+**Structure Decision**: Utilização do monorepo definido na Fase 0, separando lógicas em `apps/api` (Backend), `apps/web` (Frontend) e `tests/e2e` (Testes ponta a ponta). O backend utiliza a abordagem de Bounded Context em camadas (Domain, Application, Infrastructure, Presentation).
 
 ## Complexity Tracking
 

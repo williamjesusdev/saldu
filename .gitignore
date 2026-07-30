@@ -31,5 +31,5 @@ apps/web/out/
 Thumbs.db
 
 # Testes
-apps/e2e/playwright-report/
-apps/e2e/test-results/
+tests/e2e/playwright-report/
+tests/e2e/test-results/

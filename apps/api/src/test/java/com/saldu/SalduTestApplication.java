@@ -27,7 +27,7 @@ public class SalduTestApplication {
                     .split("\\?")[0]; // Remove parâmetros de query, se houver
 
             Path projectRoot = Paths.get(System.getProperty("user.dir"));
-            Path e2eEnvFile = projectRoot.resolve("../e2e/.env");
+            Path e2eEnvFile = projectRoot.resolve("../../tests/e2e/.env");
 
             if (!Files.exists(e2eEnvFile)) Files.createFile(e2eEnvFile);
 

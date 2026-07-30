@@ -59,15 +59,16 @@ specs/001-project-foundation/
 /
 ├── apps/
 │   ├── api/               # Spring Boot 4.1.0 (Maven)
-│   ├── e2e/               # Playwright E2E (npm)
 │   └── web/               # Next.js 16 (npm)
+├── tests/
+│   └── e2e/               # Playwright E2E (npm)
 ├── infra/
 │   └── docker-compose.yml # (ou na raiz, dependendo da preferência)
 ├── docs/                  # Documentação
 └── package.json           # Root orchestration (monorepo scripts)
 ```
 
-**Structure Decision**: Monorepo customizado gerenciado por scripts NPM na raiz para facilitar a execução conjunta dos projetos (`apps/api`, `apps/web`, `apps/e2e`), com uma pasta `infra/` dedicada ao docker-compose do banco de dados (conforme PRD).
+**Structure Decision**: Monorepo customizado gerenciado por scripts NPM na raiz para facilitar a execução conjunta dos projetos (`apps/api`, `apps/web`, `tests/e2e`), com uma pasta `infra/` dedicada ao docker-compose do banco de dados (conforme PRD).
 
 ## Complexity Tracking
 

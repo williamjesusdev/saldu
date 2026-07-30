@@ -16,7 +16,7 @@ Como um engenheiro de software, quero que o repositório seja configurado como u
 
 **Why this priority**: É a fundação básica para os demais projetos existirem.
 
-**Independent Test**: Pode ser testado independentemente verificando se os diretórios `apps/api`, `apps/web`, `apps/e2e` e `infra` existem, e se a raiz possui um `package.json` configurado para orquestrá-los (se aplicável).
+**Independent Test**: Pode ser testado independentemente verificando se os diretórios `apps/api`, `apps/web`, `tests/e2e` e `infra` existem, e se a raiz possui um `package.json` configurado para orquestrá-los (se aplicável).
 
 **Acceptance Scenarios**:
 
@@ -54,7 +54,7 @@ Como um desenvolvedor frontend, quero que o projeto Next.js (App Router) com Typ
 
 ### User Story 4 - Inicializar Testes E2E (Priority: P1)
 
-Como um engenheiro de QA/Testes, quero que o projeto base do Playwright esteja inicializado em `apps/e2e` para que eu possa escrever e rodar os testes end-to-end automatizados do sistema.
+Como um engenheiro de QA/Testes, quero que o projeto base do Playwright esteja inicializado em `tests/e2e` para que eu possa escrever e rodar os testes end-to-end automatizados do sistema.
 
 **Why this priority**: É a fundação para garantir a qualidade (Fase 6 do processo do Saldu Architect).
 
@@ -62,7 +62,7 @@ Como um engenheiro de QA/Testes, quero que o projeto base do Playwright esteja i
 
 **Acceptance Scenarios**:
 
-1. **Given** a estrutura de monorepo, **When** eu inicializo o projeto Playwright em `apps/e2e`, **Then** consigo rodar um teste base sem erros.
+1. **Given** a estrutura de monorepo, **When** eu inicializo o projeto Playwright em `tests/e2e`, **Then** consigo rodar um teste base sem erros.
 
 ---
 
@@ -82,12 +82,12 @@ Como um desenvolvedor frontend, quero que os tokens de design do `design.md` sej
 
 ### Functional Requirements
 
-- **FR-001**: O sistema DEVE ter uma estrutura de diretórios contendo `apps/api`, `apps/web`, `apps/e2e` e `infra`.
+- **FR-001**: O sistema DEVE ter uma estrutura de diretórios contendo `apps/api`, `apps/web`, `tests/e2e` e `infra`.
 - **FR-002**: O backend DEVE ser inicializado com Spring Boot 4.1.0 e Java 25.
 - **FR-003**: O backend DEVE usar PostgreSQL e gerenciar migrações com Flyway.
 - **FR-004**: O backend DEVE estar configurado para rodar testes integrados com Testcontainers.
 - **FR-005**: O frontend DEVE ser inicializado com Next.js 16 (App Router) e Tailwind CSS 4.
-- **FR-006**: O projeto de testes DEVE ser inicializado com Playwright em `apps/e2e`.
+- **FR-006**: O projeto de testes DEVE ser inicializado com Playwright em `tests/e2e`.
 - **FR-007**: Os Design Tokens documentados em `design.md` DEVEM estar implementados no frontend.
 
 ### Key Entities

@@ -55,7 +55,7 @@ npm run dev
 Navegue até o diretório de testes e execute o comando base:
 
 ```bash
-cd apps/e2e
+cd tests/e2e
 npm install
 npx playwright test
 ```

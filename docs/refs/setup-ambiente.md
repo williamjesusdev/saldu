@@ -23,8 +23,9 @@ saldu/
 ├── .specify/                # Configuração harness SpecKit
 ├── apps/                    # Aplicações
 │   ├── api/                 # API Spring Boot (Maven)
-│   ├── e2e/                 # Testes E2E com Playwright (npm)
 │   └── web/                 # App Next.js (npm)
+├── tests/                   # Testes
+│   └── e2e/                 # Testes E2E com Playwright (npm)
 ├── docs/                    # Documentação do projeto
 │   ├── prd.md
 │   ├── design.md
@@ -63,7 +64,7 @@ Edite o `package.json` raiz para incluir:
     "test:api": "cd apps/api && mvnw clean validate test",
     "test:web": "cd apps/web && npm run test",
     "test": "concurrently \"npm run test:api\" \"npm run test:web\"",
-    "test:e2e": "npm run e2e --prefix apps/test",
+    "test:e2e": "npm run e2e --prefix tests/e2e",
   }
 }
 ```
@@ -165,14 +166,14 @@ NEXT_PUBLIC_API_URL=http://localhost:8080
 
 ### 4.3. E2E (Playwright)
 ```bash
-mkdir -p apps/e2e
-cd apps/e2e
+mkdir -p tests/e2e
+cd tests/e2e
 
 npm init playwright@latest -- --quiet
 
 npx playwright install --with-deps
 
-# Variáveis de ambiente locais (apps/e2e/.env)
+# Variáveis de ambiente locais (tests/e2e/.env)
 # Esse arquivo precisa existir, mas pode estar vazio o Backend faz o preenchimento com a url do Testcontainer
 E2E_BASE_URL=http://localhost:3000
 E2E_DATABASE_URL=postgresql://saldu:saldu_2026@localhost:5432/saldu

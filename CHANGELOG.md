@@ -8,7 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
-- **Monorepo**: Initialized npm workspaces for `apps/api`, `apps/web`, and `apps/e2e`.
+- **Monorepo**: Initialized npm workspaces for `apps/api`, `apps/web`, and `tests/e2e`.
 - **Backend**: Set up Spring Boot 4.1.0 with Java 25, PostgreSQL, Flyway, and Testcontainers.
 - **Frontend**: Created Next.js 16 (App Router) project with TypeScript and Tailwind CSS 4.
 - **E2E Tests**: Configured Playwright for automated UI testing.
