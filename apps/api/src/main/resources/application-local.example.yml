@@ -1,0 +1,36 @@
+# Configurações específicas para o ambiente local de desenvolvimento
+spring:
+  # Datasource
+  datasource:
+    url: jdbc:postgresql://localhost:5432/saldu
+    username: saldu
+    password: saldu_2026
+
+  # JPA
+  jpa:
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+
+  # Flyway
+  flyway:
+    baseline-on-migrate: true
+
+# Saldu Custom Properties
+saldu:
+  jwt:
+    secret: "saldu-super-secret-key-that-is-at-least-32-bytes-long-for-local!"
+    expiration-ms: 3600000
+    cookie-name: "saldu_token"
+  admin:
+    name: "Platform Admin"
+    email: "admin@saldu.com"
+    password: "Admin123!"
+
+# Logging
+logging:
+  level:
+    com.saldu: DEBUG
+    org.hibernate.SQL: DEBUG
+    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
