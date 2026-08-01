@@ -30,7 +30,9 @@ Whenever you generate or update documents, strictly apply this standard to match
 Always start by discovering where we are in the feature lifecycle.
 
 1. Check if `.specify/feature.json` (or a feature directory) exists.
-2. Evaluate the artifacts in the feature directory to determine the current Phase:
+2. **Check Git History & Changelog**: Inspect `git log` and `CHANGELOG.md` to determine if the active feature referenced in `.specify/feature.json` has already been merged or finalized (e.g., merge commits like `Merge pull request...` or release entries).
+3. Evaluate the artifacts in the feature directory to determine the current Phase:
+   - **Phase 0 (Concluded / Completed)**: Git history shows a merge/completion commit for the feature AND all tasks in `tasks.md` are checked (`[x]`).
    - **Phase 1 (Ideation)**: No spec exists.
    - **Phase 2 (Specification)**: `spec.md` exists, but might need clarification/checklist.
    - **Phase 3 (Technical Plan)**: `spec.md` is complete, but `plan.md` is missing.
@@ -38,7 +40,9 @@ Always start by discovering where we are in the feature lifecycle.
    - **Phase 5 (Implementation)**: `tasks.md` exists with unchecked items (`- [ ]`).
    - **Phase 6 (Analysis & QA)**: All implementation tasks are checked (`- [x]`), ready for validation.
    - **Phase 7 (Convergence & Finalize)**: QA passed, ready to converge.
-3. **Mandatory State Confirmation**: Before taking ANY action, inform the user of the inferred phase and ask: _"Pelo estado atual dos arquivos, estamos na [Fase X]. Posso prosseguir com as ações desta fase?"_
+4. **Mandatory State Confirmation**: Before taking ANY action, inform the user of the inferred phase and ask:
+   - If in Phase 0: _"Verifiquei no histórico de commits (`git log`) que a feature [X] já foi concluída e mesclada (commit [hash]). Deseja iniciar uma nova especificação de feature ou realizar alguma manutenção?"_
+   - If in Phases 1-7: _"Pelo estado atual dos arquivos e histórico de commits, estamos na [Fase X]. Posso prosseguir com as ações desta fase?"_
 
 ---
 
