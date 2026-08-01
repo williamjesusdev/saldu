@@ -1,6 +1,6 @@
 {
   "name": "saldu-e2e-test",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Teste E2E de gestão financeira pessoal - Saldu",
   "private": true,
   "scripts": {

@@ -86,12 +86,12 @@ Todos os endpoints (sem exceção) seguem o formato Problem Details (RFC 9457) e
   - `page`: filter by page `default: 0`
   - `size`: filter by page size `default: 20`
   - `status`: filter by status `pending`, `used`, `expired`
-- **Response (200 OK)**: `{ "invites": [ { "token": "...", "expiresAt": "..." } ] }`
+- **Response (200 OK)**: `{ "content": [ { "token": "...", "expiresAt": "..." } ], "page": { "size": 20, "number": 0, "totalElements": 1, "totalPages": 1 } }`
 - **Response (403 Forbidden)**: Erro RFC 9457 (Acesso restrito para admin).
 
 ### `GET /api/v1/users/me`
 - **Headers**: `Authorization: Bearer <token>`
-- **Response (200 OK)**: `{ "id": "...", "name": "...", "email": "..." }`
+- **Response (200 OK)**: `{ "id": "...", "name": "...", "email": "...", "hasConsented": true }`
 
 ### `POST /api/v1/users/me/password`
 - **Headers**: `Authorization: Bearer <token>`
@@ -107,6 +107,10 @@ Todos os endpoints (sem exceção) seguem o formato Problem Details (RFC 9457) e
 - **Headers**: `Authorization: Bearer <token>`
 - **Response (204 No Content)**: Vazio.
 
+### `POST /api/v1/auth/logout`
+- **Headers**: `Authorization: Bearer <token>`
+- **Response (204 No Content)**: Cookie `saldu-token` removido (maxAge 0) e token revogado no repositório.
+
 ### `POST /api/v1/auth/password/reset`
 - **Request**: `{ "email": "..." }`
 - **Response (200 OK)**: `{ "message": "E-mail de recuperação de senha enviado" }` *(Localizado via i18n)*
@@ -118,3 +122,9 @@ Todos os endpoints (sem exceção) seguem o formato Problem Details (RFC 9457) e
 - **Response (200 OK)**: `{ "message": "Senha resetada com sucesso" }` *(Localizado via i18n)*
 - **Response (400 Bad Request)**: Erro RFC 9457 (Token inválido, Token expirado, Senha fraca).
 - **Response (429 Too Many Requests)**: Erro RFC 9457 (Rate limit excedido).
+
+### `GET /api/v1/_internal/e2e/password/reset/token` *(Profiles: test, e2e)*
+- **Query**: `email`
+- **Response (200 OK)**: `{ "token": "..." }`
+- **Response (404 Not Found)**: Token ou usuário não localizado.
+

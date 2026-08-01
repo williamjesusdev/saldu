@@ -58,7 +58,7 @@ specs/002-user-auth/
 ```text
 apps/
 ├── api/                   # Backend (Spring Boot)
-│   ├── src/main/java/br/com/saldu/
+│   ├── src/main/java/com/saldu/
 │   │   ├── domain/user/
 │   │   ├── application/auth/
 │   │   ├── infrastructure/
