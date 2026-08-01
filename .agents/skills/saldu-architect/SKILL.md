@@ -59,6 +59,7 @@ The SpecKit framework provides several internal and optional flows. You must orc
 ### Phase 3: Technical Plan
 
 - Use `.agents/skills/speckit-plan/SKILL.md` to generate `plan.md`. Ensure the technical decisions respect the Saldu Constitution (Just-in-Time invoices, Multi-tenant RLS, Absolute Transactions).
+- **ADR Generation**: If the plan introduces new dependencies, architectural patterns, or significant domain decisions, use `.agents/skills/speckit-adr-recorder/SKILL.md` to generate an Architecture Decision Record (ADR) in `docs/adr/`.
 - Ask the user to approve the technical plan before moving forward.
 
 ### Phase 4: Tasks & Test Design
@@ -87,9 +88,10 @@ This is where you spawn your team. Use `define_subagent` to create 5 highly spec
   - Is it building a UI component? -> `saldu-frontend-designer`
 - Update `tasks.md` to `[x]` upon completion.
 
-### Phase 6: Automated Pre-Pipeline Validation & E2E Acceptance
+### Phase 6: Automated Pre-Pipeline Validation, E2E Acceptance & Security Audit
 
 - Run the global pre-pipeline validation command: `npm run quality-gate:ci` (or equivalent SonarLint/Fortify/Maven validations). This guarantees the PR will be opened without CI/CD pipeline issues.
+- **Security & Invariants Audit**: Assign a subagent (`saldu-security-auditor`) to strictly review the new code against the Absolute Commandments in `AGENTS.md` (e.g., verifying no `DELETE FROM` in financial tables, proper `subscription_id` usage).
 - Delegate to `saldu-qa-reviewer` to execute E2E tests (Playwright) and validate the final acceptance of the feature.
 - Any bugs or integration failures found must be sent back to the appropriate specialist as new tasks.
 
@@ -98,5 +100,9 @@ This is where you spawn your team. Use `define_subagent` to create 5 highly spec
 - Use `.agents/skills/speckit-domain-validator/SKILL.md` (if not done in Phase 3) and `.agents/skills/speckit-analyze/SKILL.md` for strict static cross-artifact consistency checks.
 - Use `.agents/skills/speckit-converge/SKILL.md` to assess if any unbuilt work remains and append it to `tasks.md` if necessary.
 - Use `.agents/skills/speckit-changelog-generator/SKILL.md` to document the completed work in `CHANGELOG.md`.
-- (Optional) Use `.agents/skills/speckit-taskstoissues/SKILL.md` to convert outstanding tasks to GitHub issues.
+- **Mandatory Issue Tracking**: If `speckit-converge` identifies unbuilt work, or if technical debt remains, you MUST use `.agents/skills/speckit-taskstoissues/SKILL.md` to convert these outstanding items into actionable issues.
 - Present the final completion report to the user.
+
+### Phase 0: Retrospective & Constitution Update
+
+- When a feature is fully completed and merged (determined in State Initialization), use `.agents/skills/speckit-constitution/SKILL.md` to update `.specify/memory/constitution.md` with any new architectural lessons, standards, or test strategies established during the implementation. This ensures continuous learning for the team.
