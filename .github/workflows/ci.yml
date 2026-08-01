@@ -4,9 +4,21 @@ on:
   push:
     branches:
       - main
+    paths:
+      - 'apps/**'
+      - 'tests/**'
+      - 'package.json'
+      - 'package-lock.json'
+      - '.github/workflows/**'
   pull_request:
     branches:
       - main
+    paths:
+      - 'apps/**'
+      - 'tests/**'
+      - 'package.json'
+      - 'package-lock.json'
+      - '.github/workflows/**'
   workflow_dispatch:
 
 concurrency:
