@@ -33,6 +33,20 @@ spring:
   jackson:
     default-property-inclusion: non_absent
 
+# Saldu Custom Properties
+saldu:
+  jwt:
+    secret: ${SALDU_JWT_SECRET}
+    expiration-ms: ${SALDU_JWT_EXPIRATION_MS}
+    cookie-name: ${SALDU_JWT_COOKIE_NAME}
+  auth:
+    invite-token-validity-days: ${SALDU_AUTH_INVITE_TOKEN_VALIDITY_DAYS:7}
+    password-reset-token-validity-hours: ${SALDU_AUTH_PASSWORD_RESET_TOKEN_VALIDITY_HOURS:2}
+  admin:
+    name: ${SALDU_ADMIN_NAME}
+    email: ${SALDU_ADMIN_EMAIL}
+    password: ${SALDU_ADMIN_PASSWORD}
+
 # Logging
 logging:
   level:
