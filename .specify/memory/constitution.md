@@ -1,3 +1,12 @@
+<!--
+Sync Impact Report:
+- Version change: 2.0.0 → 2.1.0
+- Modified principles: None
+- Added sections: Added Security & Observability guidelines under Engineering Standards
+- Removed sections: None
+- Templates requiring updates: ✅ None
+- Follow-up TODOs: None
+-->
 # Saldu Constitution
 
 ## Core Principles
@@ -39,8 +48,9 @@ Desktop is the primary use case (financial data precision). Mobile via browser i
 - **Zero Warnings:** Build must compile with zero warnings. Linters must pass. Warnings are treated as bugs.
 - **Atomic Commits:** One commit = one complete logical change. Use Conventional Commits (`feat:`, `fix:`, `test:`, `refactor:`).
 - **Quality Gate:** Code must pass automated quality gates (JUnit/Playwright) and code review before being merged.
+- **Security & Observability:** All APIs must conform to RFC 9457 for errors. Public auth endpoints must have rate limiting. Security-critical operations must be centrally audited. Passwords must use Argon2.
 
 ## Governance
 The Saldu Constitution supersedes all other practices. `prd.md`, `design.md`, `refs/ddd-pragmatico.md` and `refs/setup-ambiente.md` are living documents. When architectural decisions change, update the docs first. All PRs/reviews must verify compliance with this constitution.
 
-**Version**: 2.0.0 | **Ratified**: 2026-07-24 | **Last Amended**: 2026-07-24
+**Version**: 2.1.0 | **Ratified**: 2026-07-24 | **Last Amended**: 2026-07-31
