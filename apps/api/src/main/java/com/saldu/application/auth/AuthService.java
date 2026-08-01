@@ -58,10 +58,8 @@ public class AuthService {
     }
 
     public void logout(String token) {
-        if (StringUtils.hasText(token)) {
-            if (!revokedTokenRepository.existsByToken(token)) {
-                revokedTokenRepository.save(RevokedToken.create(token));
-            }
+        if (StringUtils.hasText(token) && !revokedTokenRepository.existsByToken(token)) {
+            revokedTokenRepository.save(RevokedToken.create(token));
         }
     }
 }
