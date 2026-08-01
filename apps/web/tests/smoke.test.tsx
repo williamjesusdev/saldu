@@ -5,7 +5,8 @@ import { describe, expect, it } from 'vitest';
 describe('HomePage Smoke Test', () => {
   it('renders without crashing', () => {
     render(<Home />);
-    // Basic assertion to ensure something is rendered
-    expect(screen.getByText(/Seu gerenciador de finanças pessoal\./i)).toBeInTheDocument();
+    expect(
+      screen.getByText(/O Saldu redefine o gerenciamento financeiro pessoal./i),
+    ).toBeInTheDocument();
   });
 });

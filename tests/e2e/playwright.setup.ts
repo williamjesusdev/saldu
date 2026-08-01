@@ -1,15 +1,10 @@
-import bcrypt from "bcryptjs";
 import { Client } from "pg";
-
-/**
- * Shared E2E Test Credentials and Data
- * These constants should be imported by individual test files to authenticate and interact
- * with the system acting as the seeded E2E user.
- */
-export const TEST_USER_EMAIL = "e2e-user@saldu.com";
-export const TEST_SUBSCRIPTION_ID = "00000000-0000-0000-0000-000000000000";
-export const TEST_USER_CREDENTIAL = "E2eSecret!123";
-const TEST_USER_CREDENTIAL_HASH = bcrypt.hashSync(TEST_USER_CREDENTIAL, 10);
+import {
+  TEST_ADMIN_EMAIL,
+  TEST_SETTINGS_USER_EMAIL,
+  TEST_SUBSCRIPTION_ID,
+  TEST_USER_EMAIL,
+} from "./tests/utils/test-helpers";
 
 async function globalSetup() {
   console.log("Seeding database for E2E tests...");
@@ -18,11 +13,13 @@ async function globalSetup() {
     throw new Error("E2E_DATABASE_URL environment variable is not defined");
   }
 
-  console.log("Connecting to database:", process.env.E2E_DATABASE_URL);
-  const client = new Client({ connectionString: process.env.E2E_DATABASE_URL });
-  await client.connect();
+  let client: Client | null = null;
 
   try {
+    console.log("Connecting to database:", process.env.E2E_DATABASE_URL);
+    client = new Client({ connectionString: process.env.E2E_DATABASE_URL });
+    await client.connect();
+
     // 1. Check if Flyway has initialized the schema (history table exists)
     const flywayCheck = await client.query(
       "SELECT EXISTS (SELECT FROM information_schema.tables WHERE table_name = 'flyway_schema_history')",
@@ -46,27 +43,68 @@ async function globalSetup() {
     }
 
     // 3. Check if the test user already exists
-    const user = await client.query("SELECT EXISTS (SELECT * FROM users WHERE email = $1)", [
-      TEST_USER_EMAIL,
-    ]);
-
+    const user = await client.query(
+      "SELECT EXISTS (SELECT * FROM users WHERE email = $1)",
+      [TEST_USER_EMAIL],
+    );
     if (user.rows[0].exists) {
       console.log("Test user already exists. Proceeding with tests.");
       return;
     }
 
-    // 4. Insert a predictable test user for CI runs if it doesn't exist
+    // 3.1. Fetch the Argon2 hash generated for the admin to reuse it
+    const adminUser = await client.query(
+      "SELECT password_hash FROM users WHERE email = $1",
+      [TEST_ADMIN_EMAIL],
+    );
+    if (adminUser.rows.length === 0) {
+      console.log(
+        "Admin user not found. Cannot copy Argon2 hash. Skipping user seed.",
+      );
+      return;
+    }
+
+    const commonHash = adminUser.rows[0].password_hash;
+
+    // 4. Insert the subscription first to satisfy foreign key constraints
     await client.query(
-      `INSERT INTO users (subscription_id, email, password_hash, platform_admin, active)
-         VALUES ($1, $2, $3, false, true)`,
-      [TEST_SUBSCRIPTION_ID, TEST_USER_EMAIL, TEST_USER_CREDENTIAL_HASH],
+      `INSERT INTO subscriptions (id, plan) VALUES ($1, 'TEST') ON CONFLICT (id) DO NOTHING`,
+      [TEST_SUBSCRIPTION_ID],
     );
 
-    console.log("Test user successfully inserted.");
+    // 5. Insert predictable test users for CI runs if they don't exist
+    await client.query(
+      `INSERT INTO users (subscription_id, email, password_hash, name, role)
+         VALUES ($1, $2, $3, $4, $5) ON CONFLICT (email) DO NOTHING`,
+      [
+        TEST_SUBSCRIPTION_ID,
+        TEST_USER_EMAIL,
+        commonHash,
+        "E2E Test User",
+        "USER",
+      ],
+    );
+
+    // 6. Insert dedicated user for settings tests (to avoid race conditions with password update and deletion)
+    await client.query(
+      `INSERT INTO users (subscription_id, email, password_hash, name, role)
+         VALUES ($1, $2, $3, $4, $5) ON CONFLICT (email) DO NOTHING`,
+      [
+        TEST_SUBSCRIPTION_ID,
+        TEST_SETTINGS_USER_EMAIL,
+        commonHash,
+        "E2E Settings User",
+        "USER",
+      ],
+    );
+
+    console.log("Test users successfully inserted.");
   } catch (err) {
     console.error("Error seeding DB during E2E global setup:", err);
   } finally {
-    await client.end();
+    if (client) {
+      await client.end().catch(() => {});
+    }
   }
 }
 
