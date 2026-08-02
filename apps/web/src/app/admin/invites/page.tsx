@@ -103,6 +103,7 @@ export default function AdminInvitesPage() {
               </p>
             </div>
             <button
+              type="button"
               data-testid="btnRefresh"
               onClick={() => fetchInvites(pageNumber)}
               className="rounded-xl border border-slate-800 bg-slate-900 p-2.5 text-slate-300 transition hover:border-slate-700"
@@ -187,6 +188,7 @@ export default function AdminInvitesPage() {
                         </p>
                       </div>
                       <button
+                        type="button"
                         data-testid="btnCopy"
                         onClick={() => copyToClipboard(invite.token)}
                         className="flex items-center gap-2 rounded-lg bg-slate-800 px-3 py-1.5 text-xs text-slate-300 transition hover:bg-slate-700"
@@ -214,6 +216,7 @@ export default function AdminInvitesPage() {
                     </span>
                     <div className="flex gap-2">
                       <button
+                        type="button"
                         data-testid="btnPrev"
                         onClick={() => fetchInvites(pageNumber - 1)}
                         disabled={pageNumber === 0 || loading}
@@ -223,6 +226,7 @@ export default function AdminInvitesPage() {
                         Anterior
                       </button>
                       <button
+                        type="button"
                         data-testid="btnNext"
                         onClick={() => fetchInvites(pageNumber + 1)}
                         disabled={pageNumber >= totalPages - 1 || loading}

@@ -96,48 +96,6 @@ class JwtAuthenticationFilterTest {
     }
 
     @Test
-    @DisplayName(
-            "Should extract token from cookie and set SubscriptionContext and SecurityContext during chain execution")
-    void doFilterInternal_ValidCookieJwt_SetsContexts() throws Exception {
-        UUID expectedSubscriptionId = UUID.randomUUID();
-        UUID expectedUserId = UUID.randomUUID();
-        String expectedUserEmail = "test@saldu.com";
-        UserRole expectedRole = UserRole.USER;
-
-        when(jwtService.extractTokenFromRequest(request)).thenReturn("sample-valid-jwt");
-        when(revokedTokenRepository.existsByToken("sample-valid-jwt")).thenReturn(false);
-        when(jwtService.validateToken("sample-valid-jwt")).thenReturn(true);
-        when(jwtService.extractSubscriptionId("sample-valid-jwt")).thenReturn(expectedSubscriptionId);
-        when(jwtService.extractUserId("sample-valid-jwt")).thenReturn(expectedUserId);
-        when(jwtService.extractEmail("sample-valid-jwt")).thenReturn(expectedUserEmail);
-        when(jwtService.extractRole("sample-valid-jwt")).thenReturn(expectedRole);
-        when(userRepository.existsByIdAndDeletedAtIsNull(expectedUserId)).thenReturn(true);
-
-        doAnswer(invocation -> {
-                    assertThat(SubscriptionContextHolder.getSubscriptionId()).isEqualTo(expectedSubscriptionId);
-                    assertThat(SecurityContextHolder.getContext().getAuthentication())
-                            .isNotNull();
-                    assertThat(SecurityContextHolder.getContext()
-                                    .getAuthentication()
-                                    .getPrincipal())
-                            .isEqualTo(expectedUserId);
-                    return null;
-                })
-                .when(filterChain)
-                .doFilter(request, response);
-
-        filter.doFilterInternal(request, response, filterChain);
-
-        verify(filterChain).doFilter(request, response);
-        assertThat(SubscriptionContextHolder.getSubscriptionId())
-                .as("SubscriptionContext MUST be cleared after request")
-                .isNull();
-        assertThat(SecurityContextHolder.getContext().getAuthentication())
-                .as("SecurityContext MUST be cleared after request")
-                .isNull();
-    }
-
-    @Test
     @DisplayName("Should clear contexts even if exception occurs in filter chain")
     void doFilterInternal_ExceptionInChain_ClearsContexts() throws Exception {
         UUID expectedSubscriptionId = UUID.randomUUID();

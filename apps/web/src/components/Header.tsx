@@ -37,6 +37,7 @@ export function Header() {
                 </Link>
               )}
               <button
+                type="button"
                 onClick={logout}
                 className="text-sm font-semibold text-rose-400 transition-colors hover:text-rose-300"
                 data-testid="btnLogout"

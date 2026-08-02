@@ -1,7 +1,7 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import { createContext, useContext, useEffect, useState } from 'react';
+import { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react';
 
 import { fetchApi } from '@/lib/apiClient';
 import { LoginResponse, UserResponse } from '@/types/api';
@@ -17,13 +17,13 @@ interface AuthContextType {
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
-export function AuthProvider({ children }: { children: React.ReactNode }) {
+export function AuthProvider({ children }: Readonly<{ children: React.ReactNode }>) {
   const [user, setUser] = useState<UserResponse | null>(null);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const router = useRouter();
 
-  const checkAuth = async () => {
+  const checkAuth = useCallback(async () => {
     setIsLoading(true);
     const isAuthHint = localStorage.getItem('isAuthenticated') === 'true';
     if (!isAuthHint) {
@@ -44,14 +44,14 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     } finally {
       setIsLoading(false);
     }
-  };
+  }, []);
 
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect
     checkAuth();
-  }, []);
+  }, [checkAuth]);
 
-  const login = async (email: string, password: string): Promise<UserResponse> => {
+  const login = useCallback(async (email: string, password: string): Promise<UserResponse> => {
     setIsLoading(true);
     try {
       await fetchApi<LoginResponse>('/api/v1/auth/login', {
@@ -73,9 +73,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     } finally {
       setIsLoading(false);
     }
-  };
+  }, []);
 
-  const logout = async () => {
+  const logout = useCallback(async () => {
     try {
       await fetchApi('/api/v1/auth/logout', { method: 'POST' });
     } catch (err) {
@@ -86,13 +86,14 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       localStorage.removeItem('isAuthenticated');
       router.push('/login');
     }
-  };
+  }, [router]);
 
-  return (
-    <AuthContext.Provider value={{ user, isAuthenticated, isLoading, login, logout, checkAuth }}>
-      {children}
-    </AuthContext.Provider>
+  const value = useMemo<AuthContextType>(
+    () => ({ user, isAuthenticated, isLoading, login, logout, checkAuth }),
+    [user, isAuthenticated, isLoading, login, logout, checkAuth],
   );
+
+  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }
 
 export function useAuth() {

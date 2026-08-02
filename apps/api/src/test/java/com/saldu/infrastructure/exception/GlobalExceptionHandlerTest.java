@@ -3,7 +3,6 @@ package com.saldu.infrastructure.exception;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.Locale;
-import java.util.Objects;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -49,7 +48,7 @@ class GlobalExceptionHandlerTest {
         ProblemDetail body = response.getBody();
         assertThat(body).isNotNull();
         assertThat(body.getStatus()).isEqualTo(401);
-        assertThat(Objects.requireNonNull(body.getInstance()).toString()).isEqualTo("/api/v1/auth/login");
+        assertThat(body.getInstance()).hasToString("/api/v1/auth/login");
     }
 
     @Test
@@ -75,7 +74,7 @@ class GlobalExceptionHandlerTest {
         ProblemDetail body = response.getBody();
         assertThat(body).isNotNull();
         assertThat(body.getStatus()).isEqualTo(400);
-        assertThat(Objects.requireNonNull(body.getInstance()).toString()).isEqualTo("/api/test");
+        assertThat(body.getInstance()).hasToString("/api/test");
     }
 
     @Test
@@ -91,7 +90,7 @@ class GlobalExceptionHandlerTest {
         ProblemDetail body = response.getBody();
         assertThat(body).isNotNull();
         assertThat(body.getStatus()).isEqualTo(401);
-        assertThat(Objects.requireNonNull(body.getInstance()).toString()).isEqualTo("/api/admin");
+        assertThat(body.getInstance()).hasToString("/api/admin");
     }
 
     @Test
@@ -107,7 +106,7 @@ class GlobalExceptionHandlerTest {
         ProblemDetail body = response.getBody();
         assertThat(body).isNotNull();
         assertThat(body.getStatus()).isEqualTo(403);
-        assertThat(Objects.requireNonNull(body.getInstance()).toString()).isEqualTo("/api/admin");
+        assertThat(body.getInstance()).hasToString("/api/admin");
     }
 
     @Test
@@ -123,6 +122,6 @@ class GlobalExceptionHandlerTest {
         ProblemDetail body = response.getBody();
         assertThat(body).isNotNull();
         assertThat(body.getStatus()).isEqualTo(500);
-        assertThat(Objects.requireNonNull(body.getInstance()).toString()).isEqualTo("/api/error");
+        assertThat(body.getInstance()).hasToString("/api/error");
     }
 }
