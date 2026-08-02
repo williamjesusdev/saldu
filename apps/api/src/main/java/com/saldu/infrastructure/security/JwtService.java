@@ -92,8 +92,8 @@ public class JwtService {
                 }
             }
         }
-        String authHeader = request.getHeader("Authorization");
-        if (Objects.requireNonNullElse(authHeader, "").startsWith("Bearer ")) {
+        String authHeader = Objects.requireNonNullElse(request.getHeader("Authorization"), "");
+        if (authHeader.startsWith("Bearer ")) {
             return authHeader.substring(7);
         }
         return null;

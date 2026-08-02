@@ -46,6 +46,7 @@ public class SecurityConfig {
     }
 
     @Bean
+    @SuppressWarnings("null")
     public SecurityFilterChain securityFilterChain(HttpSecurity http) {
         http.csrf(AbstractHttpConfigurer::disable);
         http.httpBasic(AbstractHttpConfigurer::disable);
