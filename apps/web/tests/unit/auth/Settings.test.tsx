@@ -120,7 +120,7 @@ describe('SettingsPage Component', () => {
     await user.click(screen.getByTestId('btnDeleteCancel'));
 
     expect(screen.queryByTestId('btnDeleteConfirm')).not.toBeInTheDocument();
-    expect(screen.queryByTestId('btnDelete')).toBeInTheDocument();
+    expect(screen.getByTestId('btnDelete')).toBeInTheDocument();
   });
 
   it('handles API error during delete account gracefully', async () => {

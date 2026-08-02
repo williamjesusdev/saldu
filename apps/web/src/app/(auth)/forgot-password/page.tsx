@@ -19,7 +19,7 @@ function ForgotPasswordForm() {
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState<AlertMessage | null>(null);
-  const isResetMode = Boolean(!!token);
+  const isResetMode = Boolean(token);
 
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect
@@ -171,11 +171,8 @@ function ForgotPasswordForm() {
             disabled={loading}
             className="w-full rounded-xl bg-gradient-to-r from-emerald-500 to-teal-600 py-3 font-semibold text-slate-950 shadow-lg shadow-emerald-500/20 transition hover:from-emerald-400 hover:to-teal-500 disabled:opacity-50"
           >
-            {loading
-              ? 'Enviando...'
-              : isResetMode
-                ? 'Redefinir Senha'
-                : 'Enviar E-mail de Recuperação'}
+            {loading && 'Enviando...'}
+            {!loading && (isResetMode ? 'Redefinir Senha' : 'Enviar E-mail de Recuperação')}
           </button>
         </form>
 

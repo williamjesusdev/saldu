@@ -179,6 +179,7 @@ export default function SettingsPage() {
 
             {!showDeleteConfirm ? (
               <button
+                type="button"
                 data-testid="btnDelete"
                 onClick={() => setShowDeleteConfirm(true)}
                 className="flex w-full items-center justify-center gap-2 rounded-xl border border-rose-500/20 bg-rose-500/10 py-3 font-semibold text-rose-500 transition hover:bg-rose-500/20"
@@ -193,6 +194,7 @@ export default function SettingsPage() {
                 </p>
                 <div className="flex gap-3">
                   <button
+                    type="button"
                     data-testid="btnDeleteConfirm"
                     onClick={handleDeleteAccount}
                     disabled={isDeleting}
@@ -201,6 +203,7 @@ export default function SettingsPage() {
                     {isDeleting ? 'Excluindo...' : 'Sim, Excluir'}
                   </button>
                   <button
+                    type="button"
                     data-testid="btnDeleteCancel"
                     onClick={() => setShowDeleteConfirm(false)}
                     disabled={isDeleting}

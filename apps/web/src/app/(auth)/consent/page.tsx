@@ -95,6 +95,7 @@ export default function ConsentPage() {
 
               <button
                 id="btnConsent"
+                type="button"
                 data-testid="btnConsent"
                 onClick={handleConsent}
                 disabled={!accepted || loading}
