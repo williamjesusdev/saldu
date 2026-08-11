@@ -29,6 +29,7 @@
     "lint:all": "concurrently \"npm run lint:api\" \"npm run lint:web\"",
     "lint:api": "cross-env-shell \"cd apps/api && ./mvnw spotless:check pmd:check pmd:cpd-check\"",
     "lint:web": "cd apps/web && npm run lint",
+    "quality-gate:ci": "npm run lint:all && npm run test:all",
     "reset:all": "concurrently \"npm run clean:all\" \"npm run clean:modules\"",
     "test:all": "concurrently \"npm run test:api\" \"npm run test:web\"",
     "test:api": "cross-env-shell \"cd apps/api && ./mvnw clean validate test\"",
