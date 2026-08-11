@@ -13,7 +13,17 @@ export default defineConfig({
     coverage: {
       provider: 'v8',
       reporter: ['text', 'json', 'html', 'lcov'],
-      exclude: ['node_modules/', 'vitest.config.ts', 'next.config.ts', '.next/']
+      include: ['src/**/*.{js,jsx,ts,tsx}'],
+      exclude: [
+        'src/**/*.d.ts',
+        'src/**/*.test.{js,jsx,ts,tsx}',
+        'src/**/types/**',
+        'node_modules/',
+        'vitest.config.ts',
+        'vitest.setup.ts',
+        'next.config.ts',
+        '.next/',
+      ],
     },
     alias: {
       '@': path.resolve(__dirname, './src'),
