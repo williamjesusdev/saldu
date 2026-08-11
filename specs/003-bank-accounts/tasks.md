@@ -25,8 +25,8 @@
 
 **Purpose**: Project initialization and basic structure
 
-- [ ] T001 [P] Setup backend account module directories in apps/api/src/main/java/com/saldu/domain/account/, apps/api/src/main/java/com/saldu/application/account/, and apps/api/src/main/java/com/saldu/presentation/account/
-- [ ] T002 [P] Setup frontend account module directories in apps/web/src/app/(app)/accounts/ and apps/web/src/components/accounts/
+- [x] T001 [P] Setup backend account module directories in apps/api/src/main/java/com/saldu/domain/account/, apps/api/src/main/java/com/saldu/application/account/, and apps/api/src/main/java/com/saldu/presentation/account/
+- [x] T002 [P] Setup frontend account module directories in apps/web/src/app/(app)/accounts/ and apps/web/src/components/accounts/
 
 ---
 
@@ -36,9 +36,9 @@
 
 **⚠️ CRITICAL**: No user story work can begin until this phase is complete
 
-- [ ] T003 Create Flyway migration for `Account` entity with RLS policy and all fields in apps/api/src/main/resources/db/migration/V003__Create_Accounts_Schema.sql
-- [ ] T004 Create base `Account` entity mapped to JPA with UUID and all metadata fields in apps/api/src/main/java/com/saldu/domain/account/Account.java
-- [ ] T005 Create `AccountType` enum for JPA mapping in apps/api/src/main/java/com/saldu/domain/account/AccountType.java
+- [x] T003 Create Flyway migration for `Account` entity with RLS policy and all fields in apps/api/src/main/resources/db/migration/V003__Create_Accounts_Schema.sql
+- [x] T004 Create base `Account` entity mapped to JPA with UUID and all metadata fields in apps/api/src/main/java/com/saldu/domain/account/Account.java
+- [x] T005 Create `AccountType` enum for JPA mapping in apps/api/src/main/java/com/saldu/domain/account/AccountType.java
 
 **Checkpoint**: Foundation ready - user story implementation can now begin.
 
@@ -54,17 +54,17 @@
 
 > **NOTE: Write these tests FIRST, ensure they FAIL before implementation (Red -> Green -> Refactor)**
 
-- [ ] T006 [P] [US1] Write integration test (Testcontainers) for Account creation endpoint ensuring RLS and correct field persistence in apps/api/src/test/java/com/saldu/presentation/account/AccountCreateIntegrationTest.java
-- [ ] T007 [P] [US1] Write frontend unit tests (Jest) for Account creation form validation in apps/web/tests/unit/accounts/CreateAccount.test.tsx
-- [ ] T008 [P] [US1] Write E2E Playwright test for Account creation flow in tests/e2e/tests/accounts/create-account.spec.ts
+- [x] T006 [P] [US1] Write integration test (Testcontainers) for Account creation endpoint ensuring RLS and correct field persistence in apps/api/src/test/java/com/saldu/presentation/account/AccountCreateIntegrationTest.java
+- [x] T007 [P] [US1] Write frontend unit tests (Jest) for Account creation form AND the Next.js page (apps/web/src/app/(app)/accounts/new/page.tsx) in apps/web/tests/unit/accounts/
+- [x] T008 [P] [US1] Write E2E Playwright test for Account creation flow in tests/e2e/tests/accounts/create-account.spec.ts
 
 ### Implementation for User Story 1
 
-- [ ] T009 [P] [US1] Create `AccountRepository` interface extending JpaRepository in apps/api/src/main/java/com/saldu/domain/account/AccountRepository.java
-- [ ] T010 [US1] Implement `AccountService` (create logic validating user subscription) in apps/api/src/main/java/com/saldu/application/account/AccountService.java
-- [ ] T011 [US1] Implement `POST /api/v1/accounts` endpoint in apps/api/src/main/java/com/saldu/presentation/account/AccountController.java
-- [ ] T012 [P] [US1] Implement Next.js Create Account form UI with inputs for limit, flags, and institution in apps/web/src/components/accounts/CreateAccountForm.tsx
-- [ ] T013 [US1] Implement Next.js Create Account Page mapping API calls in apps/web/src/app/(app)/accounts/new/page.tsx
+- [x] T009 [P] [US1] Create `AccountRepository` interface extending JpaRepository in apps/api/src/main/java/com/saldu/domain/account/AccountRepository.java
+- [x] T010 [US1] Implement `AccountService` (create logic validating user subscription) in apps/api/src/main/java/com/saldu/application/account/AccountService.java
+- [x] T011 [US1] Implement `POST /api/v1/accounts` endpoint in apps/api/src/main/java/com/saldu/presentation/account/AccountController.java
+- [x] T012 [P] [US1] Implement Next.js Create Account form UI with inputs for limit, flags, and institution in apps/web/src/components/accounts/CreateAccountForm.tsx
+- [x] T013 [US1] Implement Next.js Create Account Page mapping API calls in apps/web/src/app/(app)/accounts/new/page.tsx
 
 **Checkpoint**: At this point, User Story 1 should be fully functional and testable independently.
 
@@ -78,17 +78,18 @@
 
 ### Tests for User Story 2 ⚠️
 
-- [ ] T014 [P] [US2] Write integration test for listing accounts and filtering deleted ones in apps/api/src/test/java/com/saldu/presentation/account/AccountListIntegrationTest.java
-- [ ] T015 [P] [US2] Write frontend unit tests (Jest) for Account List and Details UI in apps/web/tests/unit/accounts/ListAccounts.test.tsx
+- [x] T014 [P] [US2] Write integration test for listing accounts and filtering deleted ones in apps/api/src/test/java/com/saldu/presentation/account/AccountListIntegrationTest.java
+- [x] T015 [P] [US2] Write frontend unit tests (Jest) for Account List/Details components AND their Next.js pages (apps/web/src/app/(app)/accounts/page.tsx, apps/web/src/app/(app)/accounts/[id]/page.tsx) in apps/web/tests/unit/accounts/
+- [x] T015b [P] [US2] Write E2E Playwright test for viewing Account List and Details in tests/e2e/tests/accounts/list-accounts.spec.ts
 
 ### Implementation for User Story 2
 
-- [ ] T016 [US2] Implement list accounts logic in `AccountService` in apps/api/src/main/java/com/saldu/application/account/AccountService.java
-- [ ] T017 [US2] Implement `GET /api/v1/accounts` endpoint in apps/api/src/main/java/com/saldu/presentation/account/AccountController.java
-- [ ] T018 [P] [US2] Add bank logos (SVG) to apps/web/public/banks/ (NUBANK.svg, BB.svg, OTHER.svg)
-- [ ] T019 [US2] Implement Next.js Account List UI displaying balances and logos in apps/web/src/components/accounts/AccountList.tsx
-- [ ] T020 [US2] Implement Next.js Accounts Page (Dashboard integration) in apps/web/src/app/(app)/accounts/page.tsx
-- [ ] T021 [US2] Implement Next.js Account Details UI showing credit limits separately in apps/web/src/app/(app)/accounts/[id]/page.tsx
+- [x] T016 [US2] Implement list accounts logic in `AccountService` in apps/api/src/main/java/com/saldu/application/account/AccountService.java
+- [x] T017 [US2] Implement `GET /api/v1/accounts` endpoint in apps/api/src/main/java/com/saldu/presentation/account/AccountController.java
+- [x] T018 [P] [US2] Add bank logos (SVG) to apps/web/public/banks/ (NUBANK.svg, BB.svg, OTHER.svg)
+- [x] T019 [US2] Implement Next.js Account List UI displaying balances and logos in apps/web/src/components/accounts/AccountList.tsx
+- [x] T020 [US2] Implement Next.js Accounts Page (Dashboard integration) in apps/web/src/app/(app)/accounts/page.tsx
+- [x] T021 [US2] Implement Next.js Account Details UI showing credit limits separately in apps/web/src/app/(app)/accounts/[id]/page.tsx
 
 **Checkpoint**: At this point, User Stories 1 AND 2 should both work independently.
 
@@ -102,16 +103,17 @@
 
 ### Tests for User Story 3 ⚠️
 
-- [ ] T022 [P] [US3] Write integration test for Update and Archive ensuring `deleted_at` logic in apps/api/src/test/java/com/saldu/presentation/account/AccountUpdateArchiveIntegrationTest.java
-- [ ] T023 [P] [US3] Write E2E Playwright test for editing and archiving flow in tests/e2e/tests/accounts/edit-archive-account.spec.ts
+- [x] T022 [P] [US3] Write integration test for Update and Archive ensuring `deleted_at` logic in apps/api/src/test/java/com/saldu/presentation/account/AccountUpdateArchiveIntegrationTest.java
+- [x] T023 [P] [US3] Write E2E Playwright test for editing and archiving flow in tests/e2e/tests/accounts/edit-archive-account.spec.ts
+- [x] T023b [P] [US3] Write frontend unit tests (Jest) for EditAccountForm component (currently 8% coverage) AND the Edit Next.js page (apps/web/src/app/(app)/accounts/[id]/edit/page.tsx) in apps/web/tests/unit/accounts/
 
 ### Implementation for User Story 3
 
-- [ ] T024 [US3] Implement update and soft-delete logic in `AccountService` in apps/api/src/main/java/com/saldu/application/account/AccountService.java
-- [ ] T025 [US3] Implement `PUT /api/v1/accounts/{id}` and `DELETE /api/v1/accounts/{id}` endpoints in apps/api/src/main/java/com/saldu/presentation/account/AccountController.java
-- [ ] T026 [P] [US3] Implement Edit form component in apps/web/src/components/accounts/EditAccountForm.tsx
-- [ ] T027 [US3] Implement Next.js Edit Account Page in apps/web/src/app/(app)/accounts/[id]/edit/page.tsx
-- [ ] T028 [US3] Add Archive button and action in Account Details/List UI in apps/web/src/components/accounts/AccountList.tsx
+- [x] T024 [US3] Implement update and soft-delete logic in `AccountService` in apps/api/src/main/java/com/saldu/application/account/AccountService.java
+- [x] T025 [US3] Implement `PUT /api/v1/accounts/{id}` and `DELETE /api/v1/accounts/{id}` endpoints in apps/api/src/main/java/com/saldu/presentation/account/AccountController.java
+- [x] T026 [P] [US3] Implement Edit form component in apps/web/src/components/accounts/EditAccountForm.tsx
+- [x] T027 [US3] Implement Next.js Edit Account Page in apps/web/src/app/(app)/accounts/[id]/edit/page.tsx
+- [x] T028 [US3] Add Archive button and action in Account Details/List UI in apps/web/src/components/accounts/AccountList.tsx
 
 **Checkpoint**: All user stories should now be independently functional.
 
@@ -121,9 +123,9 @@
 
 **Purpose**: Improvements that affect multiple user stories
 
-- [ ] T029 [P] Run global quality gate check `npm run quality-gate:ci` and `./mvnw spotless:apply`
-- [ ] T030 Validate scenarios described in `quickstart.md`
-- [ ] T031 Final code cleanup and E2E flakiness check
+- [x] T029 [P] Run global quality gate check `npm run quality-gate:ci` and `./mvnw spotless:apply`
+- [x] T030 Validate scenarios described in `quickstart.md`
+- [x] T031 Final code cleanup and E2E flakiness check
 
 ---
 
