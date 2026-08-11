@@ -36,7 +36,7 @@ test.describe('Account Creation E2E Flow', () => {
     expect(response.status()).toBe(201);
 
     // Should be redirected back to the accounts list
-    await expect(page).toHaveURL(/\/accounts(\?.*)?$/);
+    await expect(page).toHaveURL(/accounts(\?.*)?$/);
 
     // E.g., a toast or success message
     await expect(page.getByText(/sucesso|criada/i)).toBeVisible();

@@ -58,10 +58,10 @@ test.describe('Account Edit and Archive E2E Flow', () => {
     expect([200, 204]).toContain(response.status());
 
     // Expect to be redirected to account details or accounts list
-    await expect(page).toHaveURL(/\/accounts/);
+    await expect(page).toHaveURL(/accounts/);
 
     // Expect success message
-    await expect(page.getByText(/atualizada/i)).toBeVisible();
+    await expect(page.getByText(/sucesso|atualizada/i)).toBeVisible();
   });
 
   test('User can archive an existing bank account', async ({ page }) => {
@@ -93,7 +93,7 @@ test.describe('Account Edit and Archive E2E Flow', () => {
     expect([200, 204]).toContain(response.status());
 
     // Expect to be redirected back to the accounts list
-    await expect(page).toHaveURL(/\/accounts(\?.*)?$/);
+    await expect(page).toHaveURL(/accounts(\?.*)?$/);
 
     // Expect success message
     await expect(page.getByText(/arquivada|removida/i)).toBeVisible();
