@@ -1,8 +1,8 @@
 <!--
 Sync Impact Report:
-- Version change: 2.0.0 → 2.1.0
-- Modified principles: None
-- Added sections: Added Security & Observability guidelines under Engineering Standards
+- Version change: 2.1.0 → 2.1.1
+- Modified principles: II. Auditability (No Silent Deletes), Engineering Standards
+- Added sections: None
 - Removed sections: None
 - Templates requiring updates: ✅ None
 - Follow-up TODOs: None
@@ -15,7 +15,7 @@ Sync Impact Report:
 Financial correctness is the absolute priority. The calculated balance and invoice totals must ALWAYS match reality. Never sacrifice data integrity for faster delivery.
 
 ### II. Auditability (No Silent Deletes)
-No transaction is ever silently deleted. Use explicit reversals or soft-deletes if necessary, but never wipe financial history. Manual corrections must be modeled as regular Transactions categorized as "Adjustments" requiring an explicit reason.
+No transaction is ever silently deleted. Use explicit reversals or soft-deletes (`deleted_at`) if necessary, but never wipe financial history. Manual corrections must be modeled as regular Transactions categorized as "Adjustments" requiring an explicit reason. Where possible, enforce the prevention of physical hard deletes using database-level triggers (e.g., `trg_prevent_accounts_hard_delete`).
 
 ### III. Privacy by Design (LGPD)
 Data isolation is paramount. Every user has a `subscription_id` and can only interact with their own data.
@@ -44,13 +44,13 @@ Desktop is the primary use case (financial data precision). Mobile via browser i
 - **Invoices:** Follow Just-in-Time creation and Computed States based on `paidAt` and `closingDate`. No physical statuses are persisted.
 
 ## Engineering Standards
-- **TDD:** Write tests before implementation (Red → Green → Refactor). Unit tests for financial calculations are mandatory. Integration tests against Postgres via Testcontainers.
+- **TDD:** Write tests before implementation (Red → Green → Refactor). Unit tests for financial calculations and frontend components (using Vitest) are mandatory. Integration tests against Postgres via Testcontainers. E2E acceptance tests via Playwright.
 - **Zero Warnings:** Build must compile with zero warnings. Linters must pass. Warnings are treated as bugs.
 - **Atomic Commits:** One commit = one complete logical change. Use Conventional Commits (`feat:`, `fix:`, `test:`, `refactor:`).
-- **Quality Gate:** Code must pass automated quality gates (JUnit/Playwright) and code review before being merged.
+- **Quality Gate:** Code must pass automated quality gates (JUnit/Vitest/Playwright) and code review before being merged.
 - **Security & Observability:** All APIs must conform to RFC 9457 for errors. Public auth endpoints must have rate limiting. Security-critical operations must be centrally audited. Passwords must use Argon2.
 
 ## Governance
 The Saldu Constitution supersedes all other practices. `prd.md`, `design.md`, `refs/ddd-pragmatico.md` and `refs/setup-ambiente.md` are living documents. When architectural decisions change, update the docs first. All PRs/reviews must verify compliance with this constitution.
 
-**Version**: 2.1.0 | **Ratified**: 2026-07-24 | **Last Amended**: 2026-07-31
+**Version**: 2.1.1 | **Ratified**: 2026-07-24 | **Last Amended**: 2026-08-11
