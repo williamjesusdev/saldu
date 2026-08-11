@@ -47,6 +47,7 @@ describe('Header Component', () => {
 
     render(<Header />);
     expect(screen.getByText('Dashboard')).toBeInTheDocument();
+    expect(screen.getByTestId('accountsHeaderLink')).toBeInTheDocument();
     expect(screen.getByText('Convites')).toBeInTheDocument();
     expect(screen.getByTestId('btnLogout')).toBeInTheDocument();
   });
