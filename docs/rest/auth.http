@@ -1,0 +1,38 @@
+### Basics
+@baseUrl = http://localhost:8080/api
+
+### Login Attempt
+# @name login
+POST {{baseUrl}}/v1/auth/login
+Content-Type: application/json
+Accept-Language: pt-BR
+
+{
+  "email": "e2e-admin@saldu.com",
+  "password": "E2eSecret!123"
+}
+
+### Get User Info
+# @name getUserInfo
+GET {{baseUrl}}/v1/users/me
+Authorization: Bearer {{login.response.body.token}}
+
+### List Invite Tokens
+# @name listInvites
+GET {{baseUrl}}/v1/admin/invites
+Authorization: Bearer {{login.response.body.token}}
+
+
+### Create Invite Token
+# @name createInvite
+POST {{baseUrl}}/v1/admin/invites
+Authorization: Bearer {{login.response.body.token}}
+Content-Type: application/json
+Accept-Language: pt-BR
+
+{
+  "email": "e2e-reset-1785538848404@saldu.com"
+}
+
+### Get Reset Token
+GET {{baseUrl}}/v1/_internal/e2e/password/reset/token?email=e2e-reset-1785538848404%40saldu.com
