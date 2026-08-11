@@ -28,6 +28,13 @@ export function Header() {
               >
                 Dashboard
               </Link>
+              <Link
+                href="/accounts"
+                className="text-sm font-semibold text-slate-300 transition-colors hover:text-emerald-400"
+                data-testid="accountsHeaderLink"
+              >
+                Contas
+              </Link>
               {user?.role === 'PLATFORM_ADMIN' && (
                 <Link
                   href="/admin/invites"

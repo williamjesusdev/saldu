@@ -13,6 +13,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+#### Bank Accounts Management (`003-bank-accounts`)
+
+- **Database & RLS**: Created Flyway migration `V003__Create_Accounts_Schema.sql` with `accounts` schema, PostgreSQL Row-Level Security policy (`account_isolation_policy`), and trigger `trg_prevent_accounts_hard_delete` preventing physical hard deletes.
+- **Domain Model**: Created `Account` entity, `AccountType` enum (`CHECKING`, `SAVINGS`, `INVESTMENT`, `CASH`, `OTHER`), and `AccountRepository` interface.
+- **Service Layer**: Implemented `AccountService` for creating, listing, updating, and soft deleting accounts with tenant isolation via `SubscriptionContextHolder`.
+- **REST Controller**: Implemented `AccountController` exposed at `/api/v1/accounts` with endpoints for creation, detailed viewing, updating, and soft deletion (`DELETE /api/v1/accounts/{id}`).
+- **Validation**: Added `@PositiveOrZero` constraints on `initialBalance` and `creditLimit` DTOs.
+- **Frontend UI**: Created Next.js pages `/accounts`, `/accounts/new`, `/accounts/[id]`, and `/accounts/[id]/edit` with custom components (`AccountList`, `CreateAccountForm`, `EditAccountForm`).
+- **Bank Logos**: Added SVG assets for financial institutions (`NUBANK.svg`, `BB.svg`, `OTHER.svg`).
+- **Integration Tests**: Implemented Testcontainers-based Spring Boot tests (`AccountCreateIntegrationTest`, `AccountListIntegrationTest`, `AccountUpdateArchiveIntegrationTest`).
+- **Web Unit Tests**: Created Vitest unit test suites for all account components and Next.js pages.
+- **E2E Tests**: Created Playwright end-to-end test specs for account creation, listing, details view, and soft-delete/archiving workflows.
+
 #### Authentication & Access Management (`002-user-auth`)
 
 - **Auth**: Implemented email/password authentication with JWT token issuance.

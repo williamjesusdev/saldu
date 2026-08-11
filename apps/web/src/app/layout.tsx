@@ -4,6 +4,7 @@ import './globals.css';
 
 import { Header } from '@/components/Header';
 import { AuthProvider } from '@/contexts/AuthContext';
+import Providers from './providers';
 
 const inter = Inter({
   variable: '--font-inter',
@@ -24,10 +25,12 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   return (
     <html lang="pt-BR" data-theme="dark" className={`${inter.variable} ${spline.variable}`}>
       <body className="flex min-h-screen flex-col bg-slate-950 font-sans text-slate-100 antialiased">
-        <AuthProvider>
-          <Header />
-          <main className="mt-16 flex-1">{children}</main>
-        </AuthProvider>
+        <Providers>
+          <AuthProvider>
+            <Header />
+            <main className="mt-16 flex-1">{children}</main>
+          </AuthProvider>
+        </Providers>
       </body>
     </html>
   );

@@ -1,38 +1,9 @@
-export interface LoginResponse {
-  tokenType: string;
-  token: string;
-  expiresIn: number;
-}
-
-export interface UserResponse {
-  id: string;
-  name: string;
-  email: string;
-  role: string;
-  hasConsented: boolean;
-}
-
-export interface AccessRequestResponse {
-  requestId: string;
-  email: string;
-  status: 'PENDING' | 'APPROVED' | 'REJECTED';
-}
-
-export interface AlertMessage {
-  type: 'success' | 'error';
-  text: string;
-}
+export * from './account';
+export * from './auth';
+export * from './core';
 
 export interface MessageResponse {
   message: string;
-}
-
-export interface InviteResponse {
-  id: string;
-  token: string;
-  expiresAt: string;
-  used: boolean;
-  email?: string;
 }
 
 export interface PageMetadata {
