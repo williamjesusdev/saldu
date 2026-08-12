@@ -1,6 +1,7 @@
 import { expect, test } from '../utils/coverage-fixture';
 import {
   API_URL,
+  csrfHeaders,
   loginProgrammatically,
   setupBrowserState,
   TEST_USER_CREDENTIAL,
@@ -16,7 +17,7 @@ test.describe('Account Edit and Archive E2E Flow', () => {
     await setupBrowserState(page, userToken);
 
     const createRes = await request.post(`${API_URL}/api/v1/accounts`, {
-      headers: { Authorization: `Bearer ${userToken}` },
+      headers: csrfHeaders({ Authorization: `Bearer ${userToken}` }),
       data: {
         name: 'Conta Corrente a Editar',
         institution: 'ITAU',

@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
 import { AuthGuard } from '@/components/AuthGuard';
+import { fetchApi } from '@/lib/apiClient';
 
 export default function ConsentPage() {
   const router = useRouter();
@@ -15,7 +16,7 @@ export default function ConsentPage() {
   const handleConsent = async () => {
     setLoading(true);
     try {
-      await fetch('/api/v1/users/me/consent', {
+      await fetchApi('/api/v1/users/me/consent', {
         method: 'POST',
       });
 

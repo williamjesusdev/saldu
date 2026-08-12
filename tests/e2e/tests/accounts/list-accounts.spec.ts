@@ -1,6 +1,7 @@
 import { expect, test } from '../utils/coverage-fixture';
 import {
   API_URL,
+  csrfHeaders,
   loginProgrammatically,
   setupBrowserState,
   TEST_USER_CREDENTIAL,
@@ -18,7 +19,7 @@ test.describe('Account Listing E2E Flow', () => {
     await setupBrowserState(page, userToken);
 
     await request.post(`${API_URL}/api/v1/accounts`, {
-      headers: { Authorization: `Bearer ${userToken}` },
+      headers: csrfHeaders({ Authorization: `Bearer ${userToken}` }),
       data: {
         name: normalAccountName,
         institution: 'OTHER',
@@ -31,7 +32,7 @@ test.describe('Account Listing E2E Flow', () => {
     });
 
     await request.post(`${API_URL}/api/v1/accounts`, {
-      headers: { Authorization: `Bearer ${userToken}` },
+      headers: csrfHeaders({ Authorization: `Bearer ${userToken}` }),
       data: {
         name: ignoredAccountName,
         institution: 'BB',

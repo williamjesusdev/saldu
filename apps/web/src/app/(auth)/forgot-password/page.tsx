@@ -1,65 +1,58 @@
 'use client';
 
-import { AlertCircle, CheckCircle, Lock, Mail } from 'lucide-react';
+import { AlertCircle, CheckCircle } from 'lucide-react';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { SubmitEvent, Suspense, useEffect, useState } from 'react';
+import { Suspense, useEffect, useState } from 'react';
 
+import { ForgotPasswordForm, ForgotPasswordFormData } from '@/components/auth';
 import { fetchApi, getErrorMessage, getSuccessMessage } from '@/lib/apiClient';
 import { AlertMessage, MessageResponse } from '@/types/api';
 
-function ForgotPasswordForm() {
+function ForgotPasswordWrapper() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const tokenParam = searchParams.get('token') || '';
   const emailParam = searchParams.get('email') || '';
 
-  const [email, setEmail] = useState(emailParam);
-  const [token, setToken] = useState(tokenParam);
-  const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState<AlertMessage | null>(null);
-  const isResetMode = Boolean(token);
+  const [isResetMode, setIsResetMode] = useState(Boolean(tokenParam));
 
   useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    if (emailParam) setEmail(emailParam);
-    if (tokenParam) setToken(tokenParam);
-  }, [emailParam, tokenParam]);
+    if (tokenParam) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setIsResetMode(true);
+    }
+  }, [tokenParam]);
 
-  const handleSubmit = async (e: SubmitEvent) => {
-    e.preventDefault();
+  const handleSubmit = async (data: ForgotPasswordFormData) => {
     setLoading(true);
     setMessage(null);
 
     try {
+      let uri = '/api/v1/auth/password/reset';
+      let successMessage =
+        'Se o e-mail existir em nossa base, você receberá o link de recuperação.';
+
       if (isResetMode) {
-        const data = await fetchApi<MessageResponse>('/api/v1/auth/password/reset/verify', {
-          method: 'POST',
-          body: JSON.stringify({ email, token, password }),
-        });
-        setMessage({
-          type: 'success',
-          text: getSuccessMessage(data, 'Senha redefinida com sucesso.'),
-        });
+        uri = '/api/v1/auth/password/reset/verify';
+        successMessage = 'Senha redefinida com sucesso. Redirecionando para o login...';
+      }
+
+      const res = await fetchApi<MessageResponse>(uri, {
+        method: 'POST',
+        body: JSON.stringify(data),
+      });
+      setMessage({ type: 'success', text: getSuccessMessage(res, successMessage) });
+
+      if (isResetMode) {
         setTimeout(() => {
           router.push('/login');
         }, 500);
-      } else {
-        const data = await fetchApi<MessageResponse>('/api/v1/auth/password/reset', {
-          method: 'POST',
-          body: JSON.stringify({ email }),
-        });
-        setMessage({
-          type: 'success',
-          text: getSuccessMessage(
-            data,
-            'Se o e-mail existir em nossa base, você receberá o link de recuperação.',
-          ),
-        });
       }
     } catch (err) {
-      const errorMsg = getErrorMessage(err, 'Erro ao conectar com o servidor.');
+      const errorMsg = getErrorMessage(err, 'Ocorreu um erro ao processar a solicitação.');
       setMessage({ type: 'error', text: errorMsg });
     } finally {
       setLoading(false);
@@ -97,84 +90,13 @@ function ForgotPasswordForm() {
           </div>
         )}
 
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <div>
-            <label
-              htmlFor="email"
-              className="mb-2 block text-xs font-semibold tracking-wider text-slate-300 uppercase"
-            >
-              E-mail cadastrado
-            </label>
-            <div className="relative">
-              <Mail className="absolute top-1/2 left-3 h-5 w-5 -translate-y-1/2 text-slate-500" />
-              <input
-                id="email"
-                data-testid="email"
-                type="email"
-                required
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="seu@email.com"
-                className="w-full rounded-xl border border-slate-800 bg-slate-950/60 py-2.5 pr-4 pl-10 text-slate-100 placeholder-slate-600 transition focus:border-emerald-500 focus:outline-none"
-              />
-            </div>
-          </div>
-
-          {isResetMode && (
-            <>
-              <div>
-                <label
-                  htmlFor="token"
-                  className="mb-2 block text-xs font-semibold tracking-wider text-slate-300 uppercase"
-                >
-                  Token de Recuperação
-                </label>
-                <input
-                  id="token"
-                  data-testid="token"
-                  type="text"
-                  required
-                  value={token}
-                  onChange={(e) => setToken(e.target.value)}
-                  placeholder="Token de verificação"
-                  className="w-full rounded-xl border border-slate-800 bg-slate-950/60 px-4 py-2.5 text-slate-100 placeholder-slate-600 transition focus:border-emerald-500 focus:outline-none"
-                />
-              </div>
-
-              <div>
-                <label
-                  htmlFor="password"
-                  className="mb-2 block text-xs font-semibold tracking-wider text-slate-300 uppercase"
-                >
-                  Nova Senha
-                </label>
-                <div className="relative">
-                  <Lock className="absolute top-1/2 left-3 h-5 w-5 -translate-y-1/2 text-slate-500" />
-                  <input
-                    id="password"
-                    data-testid="password"
-                    type="password"
-                    required
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    placeholder="Mínimo 8 caracteres (1 maiúscula, 1 número)"
-                    className="w-full rounded-xl border border-slate-800 bg-slate-950/60 py-2.5 pr-4 pl-10 text-slate-100 placeholder-slate-600 transition focus:border-emerald-500 focus:outline-none"
-                  />
-                </div>
-              </div>
-            </>
-          )}
-
-          <button
-            data-testid="btnSubmit"
-            type="submit"
-            disabled={loading}
-            className="w-full rounded-xl bg-gradient-to-r from-emerald-500 to-teal-600 py-3 font-semibold text-slate-950 shadow-lg shadow-emerald-500/20 transition hover:from-emerald-400 hover:to-teal-500 disabled:opacity-50"
-          >
-            {loading && 'Enviando...'}
-            {!loading && (isResetMode ? 'Redefinir Senha' : 'Enviar E-mail de Recuperação')}
-          </button>
-        </form>
+        <ForgotPasswordForm
+          mode={isResetMode ? 'reset' : 'request'}
+          onSubmit={handleSubmit}
+          isLoading={loading}
+          initialEmail={emailParam}
+          initialToken={tokenParam}
+        />
 
         <div className="mt-6 text-center text-xs text-slate-500">
           Lembrou a senha?{' '}
@@ -190,7 +112,7 @@ function ForgotPasswordForm() {
 export default function ForgotPasswordPage() {
   return (
     <Suspense fallback={<div className="min-h-screen bg-slate-950" />}>
-      <ForgotPasswordForm />
+      <ForgotPasswordWrapper />
     </Suspense>
   );
 }

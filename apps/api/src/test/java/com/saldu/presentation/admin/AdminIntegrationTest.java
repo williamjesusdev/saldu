@@ -1,6 +1,7 @@
 package com.saldu.presentation.admin;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -106,6 +107,7 @@ class AdminIntegrationTest extends IntegrationTestBase {
         CreateInviteRequest request = new CreateInviteRequest("invited@saldu.com");
 
         mockMvc.perform(post("/api/v1/admin/invites")
+                        .with(csrf().asHeader())
                         .header("Authorization", "Bearer " + adminToken)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(request)))
@@ -134,6 +136,7 @@ class AdminIntegrationTest extends IntegrationTestBase {
         request = accessRequestRepository.save(request);
 
         mockMvc.perform(post("/api/v1/admin/register/" + request.getId() + "/approval")
+                        .with(csrf().asHeader())
                         .header("Authorization", "Bearer " + adminToken))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.email").value("pending@saldu.com"));
@@ -151,6 +154,7 @@ class AdminIntegrationTest extends IntegrationTestBase {
         RejectRequest rejectRequest = new RejectRequest("Not right now");
 
         mockMvc.perform(post("/api/v1/admin/register/" + request.getId() + "/rejection")
+                        .with(csrf().asHeader())
                         .header("Authorization", "Bearer " + adminToken)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(rejectRequest)))

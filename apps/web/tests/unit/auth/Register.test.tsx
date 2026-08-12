@@ -42,7 +42,9 @@ describe('RegisterPage Component', () => {
     await user.click(screen.getByTestId('btnSubmit'));
 
     expect(fetch).not.toHaveBeenCalled();
-    expect(screen.getByTestId('name')).toBeInvalid();
+    await waitFor(() => {
+      expect(screen.getByText(/Nome é obrigatório/i)).toBeInTheDocument();
+    });
   });
 
   it('displays loading state during submission', async () => {

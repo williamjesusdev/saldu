@@ -48,15 +48,15 @@
 
 > **NOTE: Write these tests FIRST, ensure they FAIL before implementation (Red -> Green -> Refactor)**
 
-- [ ] T001 [P] [US1] Write frontend unit tests (Jest) for AuthForm component and Zod schemas in apps/web/tests/unit/auth/AuthForm.test.tsx
-- [ ] T002 [P] [US1] Write E2E Playwright test validating Zod error rendering on empty submits in tests/e2e/tests/auth/auth-validation.spec.ts
+- [x] T001 [P] [US1] Write frontend unit tests (Jest) for AuthForm component and Zod schemas in apps/web/tests/unit/auth/AuthForm.test.tsx
+- [x] T002 [P] [US1] Write E2E Playwright test validating Zod error rendering on empty submits in tests/e2e/tests/auth/auth-validation.spec.ts
 
 ### Implementation for User Story 1
 
-- [ ] T003 [P] [US1] Create centralized Zod schemas for login and register payloads in apps/web/src/schemas/auth.ts
-- [ ] T004 [US1] Create the centralized UI component in apps/web/src/components/auth/AuthForm.tsx using the Zod schemas from T003
-- [ ] T005 [P] [US1] Refactor login page to use AuthForm in apps/web/src/app/(app)/login/page.tsx
-- [ ] T006 [P] [US1] Refactor register page to use AuthForm in apps/web/src/app/(app)/register/page.tsx
+- [x] T003 [P] [US1] Create centralized Zod schemas for login and register payloads in apps/web/src/components/auth/AuthForm.tsx
+- [x] T004 [US1] Create the centralized UI component in apps/web/src/components/auth/AuthForm.tsx using the Zod schemas from T003
+- [x] T005 [P] [US1] Refactor login page to use AuthForm in apps/web/src/app/(auth)/login/page.tsx
+- [x] T006 [P] [US1] Refactor register page to use AuthForm in apps/web/src/app/(auth)/register/page.tsx
 
 **Checkpoint**: At this point, User Story 1 should be fully functional and testable independently.
 
@@ -72,14 +72,14 @@
 
 > **NOTE: Write these tests FIRST, ensure they FAIL before implementation (Red -> Green -> Refactor)**
 
-- [ ] T007 [P] [US2] Write integration test (Testcontainers) validating that POST requests without CSRF token return 403 Forbidden in apps/api/src/test/java/com/saldu/infrastructure/security/CsrfIntegrationTest.java
-- [ ] T008 [P] [US2] Write frontend unit test (Jest) ensuring Axios interceptor appends X-XSRF-TOKEN in apps/web/tests/unit/lib/apiClient.test.ts
-- [ ] T009 [P] [US2] Write E2E Playwright test validating full auth request loop with CSRF token in tests/e2e/tests/auth/csrf-protection.spec.ts
+- [x] T007 [P] [US2] Write integration test (Testcontainers) validating that POST requests without CSRF token return 403 Forbidden in apps/api/src/test/java/com/saldu/infrastructure/security/CsrfIntegrationTest.java
+- [x] T008 [P] [US2] Write frontend unit test (Jest) ensuring Axios interceptor appends X-XSRF-TOKEN in apps/web/tests/unit/lib/apiClient.test.ts
+- [x] T009 [P] [US2] Write E2E Playwright test validating full auth request loop with CSRF token in tests/e2e/tests/auth/csrf-protection.spec.ts
 
 ### Implementation for User Story 2
 
-- [ ] T010 [P] [US2] Update Spring Security configuration to use CookieCsrfTokenRepository.withHttpOnlyFalse() in apps/api/src/main/java/com/saldu/infrastructure/security/SecurityConfig.java
-- [ ] T011 [P] [US2] Implement CSRF interceptor logic in frontend HTTP client to read cookie and set header in apps/web/src/lib/apiClient.ts
+- [x] T010 [P] [US2] Update Spring Security configuration to use CookieCsrfTokenRepository.withHttpOnlyFalse() in apps/api/src/main/java/com/saldu/infrastructure/security/SecurityConfig.java
+- [x] T011 [P] [US2] Implement CSRF interceptor logic in frontend HTTP client to read cookie and set header in apps/web/src/lib/apiClient.ts
 
 **Checkpoint**: At this point, User Story 2 should be fully functional.
 
@@ -89,8 +89,8 @@
 
 **Purpose**: Improvements that affect multiple user stories
 
-- [ ] T012 [P] Run global quality gate check via `npm run quality-gate:ci` and ensure zero SonarQube alerts
-- [ ] T013 Validate scenarios described in `quickstart.md` locally
+- [x] T012 [P] Run global quality gate check via `npm run quality-gate:ci` and ensure zero SonarQube alerts
+- [x] T013 Validate scenarios described in `quickstart.md` locally
 
 ---
 

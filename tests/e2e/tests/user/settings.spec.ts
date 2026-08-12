@@ -3,6 +3,7 @@ import {
   API_URL,
   TEST_SETTINGS_USER_EMAIL,
   TEST_USER_CREDENTIAL,
+  csrfHeaders,
   loginProgrammatically,
   setupBrowserState,
   setupTestUser,
@@ -76,7 +77,7 @@ test.describe.serial('User Settings E2E Flow', () => {
     const tokenAfterChange = (await loginRes.json()).token;
 
     const restoreRes = await request.post(`${API_URL}/api/v1/users/me/password`, {
-      headers: { Authorization: `Bearer ${tokenAfterChange}` },
+      headers: csrfHeaders({ Authorization: `Bearer ${tokenAfterChange}` }),
       data: {
         currentPassword: 'NewSecret123!',
         newPassword: TEST_USER_CREDENTIAL,

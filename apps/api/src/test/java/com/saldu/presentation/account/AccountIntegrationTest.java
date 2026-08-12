@@ -1,6 +1,7 @@
 package com.saldu.presentation.account;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -121,6 +122,7 @@ class AccountIntegrationTest extends IntegrationTestBase {
                 "New Test Bank", "New Test Inst", AccountType.SAVINGS, BigDecimal.TEN, BigDecimal.ONE, false, false);
 
         mockMvc.perform(post("/api/v1/accounts")
+                        .with(csrf().asHeader())
                         .header("Authorization", "Bearer " + token)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(request)))
@@ -143,6 +145,7 @@ class AccountIntegrationTest extends IntegrationTestBase {
                 true);
 
         mockMvc.perform(put("/api/v1/accounts/" + testAccount.getId())
+                        .with(csrf().asHeader())
                         .header("Authorization", "Bearer " + token)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(request)))
@@ -158,7 +161,9 @@ class AccountIntegrationTest extends IntegrationTestBase {
     @Test
     @DisplayName("Should soft delete account successfully")
     void deleteAccount_ExistingAccount_SoftDeletesAccount() throws Exception {
-        mockMvc.perform(delete("/api/v1/accounts/" + testAccount.getId()).header("Authorization", "Bearer " + token))
+        mockMvc.perform(delete("/api/v1/accounts/" + testAccount.getId())
+                        .with(csrf().asHeader())
+                        .header("Authorization", "Bearer " + token))
                 .andExpect(status().isNoContent());
 
         Account updatedAccount = accountRepository.findById(testAccount.getId()).orElseThrow();

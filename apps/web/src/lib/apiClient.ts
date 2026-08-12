@@ -26,11 +26,27 @@ export function getErrorMessage(
   return err instanceof Error && err.message ? err.message : defaultMessage;
 }
 
+export function getCsrfTokenFromCookie(): string | null {
+  if (typeof document === 'undefined' || !document.cookie) {
+    return null;
+  }
+  const match = new RegExp(/(?:^|; )XSRF-TOKEN=([^;]*)/).exec(document.cookie);
+  return match ? decodeURIComponent(match[1]) : null;
+}
+
 export async function fetchApi<T>(endpoint: string, options: RequestInit = {}): Promise<T> {
-  const headers: HeadersInit = {
+  const method = (options.method || 'GET').toUpperCase();
+  const headers: Record<string, string> = {
     'Content-Type': 'application/json',
-    ...options.headers,
+    ...(options.headers as Record<string, string>),
   };
+
+  if (['POST', 'PUT', 'DELETE', 'PATCH'].includes(method) && !headers['X-XSRF-TOKEN']) {
+    const csrfToken = getCsrfTokenFromCookie();
+    if (csrfToken) {
+      headers['X-XSRF-TOKEN'] = csrfToken;
+    }
+  }
 
   const res = await fetch(endpoint, {
     ...options,
