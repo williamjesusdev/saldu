@@ -3,6 +3,7 @@ import { APIRequestContext, expect, Page } from '@playwright/test';
 const API_URL = process.env.E2E_API_URL || 'http://localhost:8080';
 const WEB_URL = process.env.E2E_WEB_URL || 'http://localhost:3000';
 
+const CSRF_TOKEN = 'e2e-csrf-token';
 const TEST_SUBSCRIPTION_ID = '00000000-0000-0000-0000-000000000000';
 const TEST_USER_CREDENTIAL = 'E2eSecret!123';
 const TEST_USER_EMAIL = 'e2e-user@saldu.com';
@@ -17,6 +18,7 @@ const ENDPOINTS = {
 
 export {
   API_URL,
+  CSRF_TOKEN,
   TEST_ADMIN_EMAIL,
   TEST_SETTINGS_USER_EMAIL,
   TEST_SUBSCRIPTION_ID,
@@ -24,6 +26,14 @@ export {
   TEST_USER_EMAIL,
   WEB_URL,
 };
+
+export function csrfHeaders(extraHeaders: Record<string, string> = {}): Record<string, string> {
+  return {
+    'X-XSRF-TOKEN': CSRF_TOKEN,
+    Cookie: `XSRF-TOKEN=${CSRF_TOKEN}`,
+    ...extraHeaders,
+  };
+}
 
 export async function loginProgrammatically(
   request: APIRequestContext,
@@ -45,7 +55,10 @@ export async function loginProgrammatically(
 }
 
 export async function setupBrowserState(page: Page, token: string) {
-  await page.context().addCookies([{ name: 'saldu-token', value: token, url: WEB_URL }]);
+  await page.context().addCookies([
+    { name: 'saldu-token', value: token, url: WEB_URL },
+    { name: 'XSRF-TOKEN', value: CSRF_TOKEN, url: WEB_URL },
+  ]);
 
   await page.addInitScript(() => {
     localStorage.setItem('isAuthenticated', 'true');
@@ -69,7 +82,7 @@ export async function setupTestUser(
   const adminToken = await loginProgrammatically(request, TEST_ADMIN_EMAIL, TEST_USER_CREDENTIAL);
 
   const inviteRes = await request.post(ENDPOINTS.ADMIN_INVITES, {
-    headers: { Authorization: `Bearer ${adminToken}` },
+    headers: csrfHeaders({ Authorization: `Bearer ${adminToken}` }),
     data: { email },
   });
 

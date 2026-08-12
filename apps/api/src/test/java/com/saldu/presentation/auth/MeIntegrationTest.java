@@ -1,6 +1,7 @@
 package com.saldu.presentation.auth;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -91,6 +92,7 @@ class MeIntegrationTest extends IntegrationTestBase {
         ChangePasswordRequest request = new ChangePasswordRequest("CurrentPassword123!", "NewStrongPassword123!");
 
         mockMvc.perform(post("/api/v1/users/me/password")
+                        .with(csrf().asHeader())
                         .header("Authorization", "Bearer " + token)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(request)))
@@ -105,7 +107,9 @@ class MeIntegrationTest extends IntegrationTestBase {
     @Test
     @DisplayName("Should record user consent successfully")
     void giveConsent_Authenticated_RecordsConsent() throws Exception {
-        mockMvc.perform(post("/api/v1/users/me/consent").header("Authorization", "Bearer " + token))
+        mockMvc.perform(post("/api/v1/users/me/consent")
+                        .with(csrf().asHeader())
+                        .header("Authorization", "Bearer " + token))
                 .andExpect(status().isNoContent());
 
         User updatedUser = userRepository.findById(testUser.getId()).orElseThrow();
@@ -115,7 +119,7 @@ class MeIntegrationTest extends IntegrationTestBase {
     @Test
     @DisplayName("Should soft delete user account successfully")
     void deleteAccount_Authenticated_SoftDeletesAccount() throws Exception {
-        mockMvc.perform(delete("/api/v1/users/me").header("Authorization", "Bearer " + token))
+        mockMvc.perform(delete("/api/v1/users/me").with(csrf().asHeader()).header("Authorization", "Bearer " + token))
                 .andExpect(status().isNoContent());
 
         User updatedUser = userRepository.findById(testUser.getId()).orElseThrow();

@@ -23,7 +23,6 @@ test.describe('Account Creation E2E Flow', () => {
     await page.getByTestId('initialBalance').fill('100.00');
     await page.getByTestId('creditLimit').fill('500.00');
 
-    // Assuming checkboxes for flags
     await page.getByTestId('ignoreInTotals').check();
 
     const responsePromise = page.waitForResponse(
@@ -35,10 +34,8 @@ test.describe('Account Creation E2E Flow', () => {
     const response = await responsePromise;
     expect(response.status()).toBe(201);
 
-    // Should be redirected back to the accounts list
     await expect(page).toHaveURL(/accounts(\?.*)?$/);
 
-    // E.g., a toast or success message
     await expect(page.getByText(/sucesso|criada/i)).toBeVisible();
   });
 
@@ -47,10 +44,8 @@ test.describe('Account Creation E2E Flow', () => {
 
     await expect(page.getByRole('heading', { name: 'Nova Conta' })).toBeVisible();
 
-    // Try submitting without filling any field
     await page.getByTestId('btnSubmit').click();
 
-    // Should display validation error for the required name field
     await expect(page.getByText('Nome é obrigatório')).toBeVisible();
   });
 });

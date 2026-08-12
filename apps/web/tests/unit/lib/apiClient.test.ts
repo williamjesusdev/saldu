@@ -1,6 +1,12 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
-import { ApiException, fetchApi, getErrorMessage, getSuccessMessage } from '@/lib/apiClient';
+import {
+  ApiException,
+  fetchApi,
+  getCsrfTokenFromCookie,
+  getErrorMessage,
+  getSuccessMessage,
+} from '@/lib/apiClient';
 import { ApiError } from '@/types/api';
 
 describe('apiClient', () => {
@@ -43,6 +49,13 @@ describe('apiClient', () => {
     it('returns fallback message when data or message is empty', () => {
       expect(getSuccessMessage({})).toBe('Operação realizada com sucesso.');
       expect(getSuccessMessage(null, 'Fallback customizado')).toBe('Fallback customizado');
+    });
+  });
+
+  describe('getCsrfTokenFromCookie', () => {
+    it('returns null if the cookie is different from XSRF-TOKEN', () => {
+      Object.defineProperty(document, 'cookie', { writable: true, value: 'XSRF-COOKIE=' });
+      expect(getCsrfTokenFromCookie()).toBeNull();
     });
   });
 
@@ -148,6 +161,32 @@ describe('apiClient', () => {
 
       await expect(fetchApi('/api/test')).rejects.toThrow(
         new ApiException('Erro de conexão ou serviço indisponível.', 401, {} as ApiError),
+      );
+    });
+
+    it('attaches X-XSRF-TOKEN header on mutating requests when cookie exists', async () => {
+      Object.defineProperty(document, 'cookie', {
+        writable: true,
+        value: 'XSRF-TOKEN=test-csrf-token-123',
+      });
+
+      vi.mocked(fetch).mockResolvedValueOnce({
+        status: 200,
+        ok: true,
+        headers: new Headers({ 'content-type': 'application/json' }),
+        json: () => Promise.resolve({ success: true }),
+        text: () => Promise.resolve(JSON.stringify({ success: true })),
+      } as unknown as Response);
+
+      await fetchApi('/api/v1/accounts', { method: 'POST' });
+
+      expect(fetch).toHaveBeenCalledWith(
+        '/api/v1/accounts',
+        expect.objectContaining({
+          headers: expect.objectContaining({
+            'X-XSRF-TOKEN': 'test-csrf-token-123',
+          }),
+        }),
       );
     });
   });

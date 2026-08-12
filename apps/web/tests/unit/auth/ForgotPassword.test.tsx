@@ -40,7 +40,30 @@ describe('ForgotPasswordPage Component', () => {
     await user.click(screen.getByTestId('btnSubmit'));
 
     expect(fetch).not.toHaveBeenCalled();
-    expect(screen.getByTestId('email')).toBeInvalid();
+    await waitFor(() => {
+      expect(screen.getByText(/E-mail é obrigatório/i)).toBeInTheDocument();
+    });
+  });
+
+  it('prevents submission in reset mode if token is empty', async () => {
+    const user = userEvent.setup();
+    mockGet.mockImplementation((key: string) => {
+      if (key === 'token') return 'RESET_TOKEN_123';
+      if (key === 'email') return 'reset@saldu.com';
+      return null;
+    });
+
+    render(<ForgotPasswordPage />);
+
+    expect(screen.getByRole('heading', { name: 'Redefinir Senha' })).toBeInTheDocument();
+
+    await user.clear(screen.getByTestId('token'));
+    await user.click(screen.getByTestId('btnSubmit'));
+
+    expect(fetch).not.toHaveBeenCalled();
+    await waitFor(() => {
+      expect(screen.getByText(/Token de recuperação é obrigatório/i)).toBeInTheDocument();
+    });
   });
 
   it('displays loading state during submission', async () => {
@@ -145,7 +168,7 @@ describe('ForgotPasswordPage Component', () => {
     await user.click(screen.getByTestId('btnSubmit'));
 
     await waitFor(() => {
-      expect(screen.getByText('Erro ao conectar com o servidor.')).toBeInTheDocument();
+      expect(screen.getByText('Ocorreu um erro ao processar a solicitação.')).toBeInTheDocument();
     });
   });
 });

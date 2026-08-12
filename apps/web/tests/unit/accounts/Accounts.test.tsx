@@ -106,11 +106,9 @@ describe('AccountsPage Component', () => {
     const confirmButton = screen.getByTestId('btnConfirmArchive');
     await user.click(confirmButton);
 
-    // Assert loading state
     expect(confirmButton).toHaveTextContent('Arquivando...');
     expect(confirmButton).toBeDisabled();
 
-    // Resolve deletion
     deferredDelete.resolve(jsonResponse({}));
 
     await waitFor(() => {

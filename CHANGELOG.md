@@ -13,6 +13,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+#### Auth & Security Refactor (`004-auth-security-refactor`)
+
+- **Frontend Centralization & DRY**: Extracted authentication form logic into reusable, centralized components `AuthForm` and `ForgotPasswordForm` in `components/auth/` utilizing Zod schemas for local client-side validation.
+- **Form Refactoring**: Refactored Next.js pages `/login`, `/register`, and `/forgot-password` to consume centralized form components, isolating UI rendering from routing and state management.
+- **CSRF Defense in Depth**: Reactivated Spring Security CSRF protection using `CookieCsrfTokenRepository.withHttpOnlyFalse()` and `CsrfTokenRequestAttributeHandler` configured for SPA plain-text header matching.
+- **HTTP Interceptor**: Updated `apiClient.ts` to automatically extract the `XSRF-TOKEN` cookie and attach the `X-XSRF-TOKEN` header on all state-mutating requests (`POST`, `PUT`, `DELETE`, `PATCH`).
+- **Security & CSRF Integration Tests**: Created `CsrfIntegrationTest.java` (Testcontainers) validating that non-CSRF mutating requests return 403 Forbidden, while requests with proper headers are allowed. Updated `apiClient.test.ts` to verify CSRF header propagation.
+
 #### Bank Accounts Management (`003-bank-accounts`)
 
 - **Database & RLS**: Created Flyway migration `V003__Create_Accounts_Schema.sql` with `accounts` schema, PostgreSQL Row-Level Security policy (`account_isolation_policy`), and trigger `trg_prevent_accounts_hard_delete` preventing physical hard deletes.

@@ -43,7 +43,9 @@ describe('LoginPage Component', () => {
     await user.click(screen.getByTestId('btnSubmit'));
 
     expect(fetch).not.toHaveBeenCalled();
-    expect(screen.getByTestId('email')).toBeInvalid();
+    await waitFor(() => {
+      expect(screen.getByText(/E-mail é obrigatório/i)).toBeInTheDocument();
+    });
   });
 
   it('displays loading state during submission', async () => {
@@ -172,7 +174,7 @@ describe('LoginPage Component', () => {
     await user.click(screen.getByTestId('btnSubmit'));
 
     await waitFor(() => {
-      expect(screen.getByText('Erro ao conectar com o servidor.')).toBeInTheDocument();
+      expect(screen.getByText('Ocorreu um erro ao processar a solicitação.')).toBeInTheDocument();
     });
   });
 });

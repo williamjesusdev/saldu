@@ -1,5 +1,10 @@
 import { expect, test } from '../utils/coverage-fixture';
-import { API_URL, TEST_ADMIN_EMAIL, loginProgrammatically } from '../utils/test-helpers';
+import {
+  API_URL,
+  TEST_ADMIN_EMAIL,
+  csrfHeaders,
+  loginProgrammatically,
+} from '../utils/test-helpers';
 
 test.describe('Registration E2E Flow', () => {
   test('User can navigate to register page and submit registration request', async ({ page }) => {
@@ -35,7 +40,7 @@ test.describe('Registration E2E Flow', () => {
     const token = await loginProgrammatically(request, TEST_ADMIN_EMAIL);
     const inviteEmail = `invited_${Date.now()}@saldu.com`;
     const inviteResponse = await request.post(`${API_URL}/api/v1/admin/invites`, {
-      headers: { Authorization: `Bearer ${token}` },
+      headers: csrfHeaders({ Authorization: `Bearer ${token}` }),
       data: { email: inviteEmail },
     });
     const inviteData = await inviteResponse.json();

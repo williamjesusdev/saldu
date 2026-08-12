@@ -1,0 +1,5 @@
+# Phase 0: Research & Technical Decisions
+
+**Decision**: Adotar o padrão `CookieCsrfTokenRepository.withHttpOnlyFalse()` no Spring Security e interceptor global via Axios/Fetch no Next.js.
+**Rationale**: Como a aplicação Saldu usa cookies `HttpOnly` para o JWT primário (proteção máxima contra ataques XSS), a OWASP e a arquitetura oficial do Spring Security exigem proteção CSRF adicional. A melhor forma de integrar isso com aplicações SPA (como o Next.js) é expor o token CSRF em um cookie lateral secundário que seja legível pelo JavaScript (`HttpOnly` = false). O JS então extrai esse token e o reenvia como um header HTTP `X-XSRF-TOKEN`. Isso sana definitivamente o alerta estático do SonarQube (`java:S4502`).
+**Alternatives considered**: Usar tokens stateless enviados apenas no header `Authorization` e armazenados no `localStorage` do navegador. Esta alternativa foi rejeitada pelo altíssimo risco da aplicação sofrer roubo total de credenciais em caso de explorações XSS, conforme recomendação de mercado (OWASP).
