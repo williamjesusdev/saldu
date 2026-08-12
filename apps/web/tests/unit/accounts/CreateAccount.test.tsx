@@ -61,12 +61,10 @@ describe('CreateAccountPage Component', () => {
 
     await user.click(screen.getByTestId('btnSubmit'));
 
-    // Assert loading state
     const submitBtn = screen.getByTestId('btnSubmit');
     expect(submitBtn).toHaveTextContent('Criando...');
     expect(submitBtn).toBeDisabled();
 
-    // Resolve mutation
     deferred.resolve(jsonResponse({ id: 'mocked-uuid' }));
 
     await waitFor(() => {

@@ -85,11 +85,9 @@ describe('EditAccountPage Component', () => {
     const submitButton = screen.getByTestId('btnSubmit');
     await user.click(submitButton);
 
-    // Assert loading state
     expect(submitButton).toHaveTextContent('Salvando...');
     expect(submitButton).toBeDisabled();
 
-    // Resolve update mutation
     deferredPut.resolve(jsonResponse({}));
 
     await waitFor(() => {

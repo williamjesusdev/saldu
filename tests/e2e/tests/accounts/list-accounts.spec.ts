@@ -4,7 +4,7 @@ import {
   loginProgrammatically,
   setupBrowserState,
   TEST_USER_CREDENTIAL,
-  TEST_USER_EMAIL,
+  TEST_USER_EMAIL
 } from '../utils/test-helpers';
 
 test.describe('Account Listing E2E Flow', () => {
@@ -17,7 +17,6 @@ test.describe('Account Listing E2E Flow', () => {
     userToken = await loginProgrammatically(request, TEST_USER_EMAIL, TEST_USER_CREDENTIAL);
     await setupBrowserState(page, userToken);
 
-    // Create a normal account for testing
     await request.post(`${API_URL}/api/v1/accounts`, {
       headers: { Authorization: `Bearer ${userToken}` },
       data: {
@@ -31,7 +30,6 @@ test.describe('Account Listing E2E Flow', () => {
       },
     });
 
-    // Create an ignored account for testing
     await request.post(`${API_URL}/api/v1/accounts`, {
       headers: { Authorization: `Bearer ${userToken}` },
       data: {
@@ -49,16 +47,13 @@ test.describe('Account Listing E2E Flow', () => {
   test('User can view a list of accounts with balances and logos', async ({ page }) => {
     await page.goto('/accounts');
 
-    // Wait for the heading
     await expect(page.getByRole('heading', { name: 'Contas bancárias' })).toBeVisible();
 
-    // Validate the normal account
     const normalAccountItem = page.locator('li').filter({ hasText: normalAccountName });
     await expect(normalAccountItem).toBeVisible();
     await expect(normalAccountItem.getByText('1.500,50')).toBeVisible();
     await expect(normalAccountItem.locator('img[alt="OTHER logo"]')).toBeVisible();
 
-    // Validate the ignored account
     const ignoredAccountItem = page.locator('li').filter({ hasText: ignoredAccountName });
     await expect(ignoredAccountItem).toBeVisible();
     await expect(ignoredAccountItem.getByText('5.000,00')).toBeVisible();
